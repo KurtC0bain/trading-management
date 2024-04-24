@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TM.Application.Common.Interfaces;
+using TM.Domain.Entities;
 using TM.Infrastructure.Persistance;
+using TM.Infrastructure.Persistance.Repositories;
 
 namespace TM.Infrastructure
 {
@@ -12,6 +15,10 @@ namespace TM.Infrastructure
             services.AddDbContext<TradeManagementDbContext>
                 (options => options.
                             UseSqlServer(configuration.GetConnectionString("SqlServer")));
+
+            services.AddTransient<ITradingManagementDbContext, TradeManagementDbContext>();
+
+            services.AddTransient<IRepositoryBase<Trade>, TradesRepository>();
 
             return services;
         }

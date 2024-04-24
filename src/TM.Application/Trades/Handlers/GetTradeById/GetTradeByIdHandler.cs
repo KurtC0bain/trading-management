@@ -1,19 +1,17 @@
 ﻿using MediatR;
+using TM.Application.Common.Interfaces;
 using TM.Application.Trades.Queries;
 using TM.Domain.Entities;
 
 namespace TM.Application.Trades.Handlers.GetAllTrades
 {
-    public class GetTradeByIdHandler : IRequestHandler<GetTradeByIdQuery, Trade>
+    public class GetTradeByIdHandler(IRepositoryBase<Trade> repository) : IRequestHandler<GetTradeByIdQuery, Trade>
     {
-        public GetTradeByIdHandler()
-        {
+        private readonly IRepositoryBase<Trade> _repository = repository;
 
-        }
-
-        public Task<Trade> Handle(GetTradeByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Trade> Handle(GetTradeByIdQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _repository.FindByIdAsync(request.TradeId);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using TM.Application.Common.Interfaces;
+using TM.Domain.Entities;
 
 namespace TM.Application
 {

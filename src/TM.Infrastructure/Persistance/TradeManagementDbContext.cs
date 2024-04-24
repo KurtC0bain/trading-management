@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using TM.Application.Common.Interfaces;
 using TM.Domain.Entities;
 
 namespace TM.Infrastructure.Persistance
 {
-    public class TradeManagementDbContext(DbContextOptions options) : DbContext(options)
+    public class TradeManagementDbContext(DbContextOptions options) : DbContext(options), ITradingManagementDbContext
     {
         public DbSet<Trade> Trades { get; set; }
         public DbSet<Pair> Pairs { get; set; }

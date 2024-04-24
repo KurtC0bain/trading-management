@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TM.Application.Common.Models;
+using TM.Application.Trades.Commands.CreateTrade;
 using TM.Application.Trades.Queries;
 
 namespace TM.API.Controllers
@@ -20,11 +22,21 @@ namespace TM.API.Controllers
         }
 
         [HttpGet("trades/{tradeId}")]
-        public async Task<IActionResult> GetTradeById(string tradeId)
+        public async Task<IActionResult> GetTradeById(Guid tradeId)
         {
             var query = new GetTradeByIdQuery(tradeId);
 
             var trade = await _mediator.Send(query);
+
+            return trade is not null ? Ok(trade) : NotFound();
+        }
+
+        [HttpPost("trades")]
+        public async Task<IActionResult> CreateTrade(TradeDTO trade)
+        {
+            var query = new CreateTradeCommand(trade);
+
+            await _mediator.Send(query);
 
             return trade is not null ? Ok(trade) : NotFound();
         }

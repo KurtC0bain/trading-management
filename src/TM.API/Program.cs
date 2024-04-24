@@ -14,10 +14,6 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
-builder.Services.AddDbContext<TradeManagementDbContext>
-(options => options.
-                UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-
 
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));

@@ -7,7 +7,7 @@ namespace TM.Application.Validation
     {
         public GetTradeByIdQueryValidator()
         {
-            RuleFor(x => x.TradeId).NotEqual("1");
+            RuleFor(x => x.TradeId.ToString()).NotEqual("1");
         }
     }
 }
