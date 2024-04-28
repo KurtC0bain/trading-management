@@ -15,7 +15,6 @@ namespace TM.Infrastructure.Persistance
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Seed();
-            base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

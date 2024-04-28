@@ -21,10 +21,11 @@ namespace TM.Infrastructure.Persistance.Repositories
 
         public virtual async Task<TEntity?> FindByIdAsync(object id) => await DbSet.FindAsync(id);
 
-        public virtual async Task AddAsync(TEntity entity)
+        public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
             await DbSet.AddAsync(entity);
             await Context.SaveChangesAsync();
+            return entity;
         }
 
         public virtual async Task UpdateAsync(TEntity entity)
@@ -34,9 +35,11 @@ namespace TM.Infrastructure.Persistance.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public virtual async Task DeleteAsync(TEntity entity)
+        public virtual async Task DeleteAsync(object id)
         {
-            DbSet.Remove(entity);
+            var trade = await DbSet.FindAsync(id);
+            DbSet.Attach(trade);
+            DbSet.Remove(trade);
             await Context.SaveChangesAsync();
         }
     }

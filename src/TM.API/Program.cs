@@ -5,6 +5,8 @@ using System.Text.Json.Serialization;
 using TM.Application;
 using TM.Application.Behaviour;
 using TM.Application.MapperProfiles;
+using TM.Application.Trades.Commands;
+using TM.Application.Validation;
 using TM.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,17 +17,13 @@ builder.Services
 
 builder.Services.AddAutoMapper(typeof(TradeProfile));
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 builder.Services.AddControllers().AddJsonOptions(x =>
    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 

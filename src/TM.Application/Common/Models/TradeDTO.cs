@@ -13,17 +13,18 @@ namespace TM.Application.Common.Models
         public DateTime Date { get; set; } // on back-end
 
         public required double InitialDeposit { get; set; }
+        public double RiskAmount { get; set; }
         public required double PriceEntry { get; set; }
         public required double PriceStop { get; set; }
         public required double PriceTake { get; set; }
 
         public double Profit { get; set; }// on back-end
-        public double DepositRisk { get; set; }
-        public double RiskRewardRatio { get; set; }// on back-end
+        public required double DepositRisk { get; set; }
+        public double? RiskRewardRatio { get; set; }// on back-end
 
         public string PositionType { get; set; }
         public string DirectionType { get; set; }
-        public string ResultType { get; set; }
+        public string? ResultType { get; set; }
         public int Rating { get; set; }
     }
 }

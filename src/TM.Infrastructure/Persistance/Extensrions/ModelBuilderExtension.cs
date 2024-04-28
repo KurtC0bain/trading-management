@@ -89,60 +89,60 @@ namespace TM.Infrastructure.Persistance.Extensrions
                     });
 
 
-            var trades = new List<Trade>
-            {
-                new()
-                {
-                    ID = Guid.NewGuid().ToString(),
-                    PairID = pairs[0].ID,
-                    SetupID = setups[0].ID,
-                    UserID = Guid.NewGuid().ToString(),
-                    Date = DateTime.Now,
+            //var trades = new List<Trade>
+            //{
+            //    new()
+            //    {
+            //        ID = Guid.NewGuid().ToString(),
+            //        PairID = pairs[0].ID,
+            //        SetupID = setups[0].ID,
+            //        UserID = Guid.NewGuid().ToString(),
+            //        Date = DateTime.Now,
 
-                    DirectionType = DirectionType.Trend,
-                    PositionType = PositionType.Long,
+            //        DirectionType = DirectionType.Trend,
+            //        PositionType = PositionType.Long,
 
-                    InitialDeposit = 500,
+            //        InitialDeposit = 500,
+            //        PriceEntry = 60000,
+            //        PriceStop = 59900,
+            //        PriceTake = 60500,
+            //        DepositRisk = 2,
 
-                    PriceEntry = 60000,
-                    PriceStop = 59900,
-                    PriceTake = 60500,
-                    DepositRisk = 2,
+            //        Rating = 4,
+            //        ResultType = ResultType.Take
+            //    },
+            //    new()
+            //    {
+            //        ID = Guid.NewGuid().ToString(),
+            //        PairID = pairs[1].ID,
+            //        SetupID = setups[2].ID,
+            //        UserID = Guid.NewGuid().ToString(),
+            //        Date = DateTime.Now,
 
-                    Rating = 4,
-                    ResultType = ResultType.Take
-                },
-                new()
-                {
-                    ID = Guid.NewGuid().ToString(),
-                    PairID = pairs[1].ID,
-                    SetupID = setups[2].ID,
-                    UserID = Guid.NewGuid().ToString(),
-                    Date = DateTime.Now,
+            //        DirectionType = DirectionType.Countertrand,
+            //        PositionType = PositionType.Short,
 
-                    DirectionType = DirectionType.Countertrand,
-                    PositionType = PositionType.Short,
+            //        InitialDeposit = 500,
 
-                    InitialDeposit = 500,
+            //        PriceEntry = 3200,
+            //        PriceStop = 3225,
+            //        PriceTake = 3150,
+            //        DepositRisk = 2,
 
-                    PriceEntry = 3200,
-                    PriceStop = 3225,
-                    PriceTake = 3150,
-                    DepositRisk = 2,
+            //        Rating = 3,
+            //        ResultType = ResultType.Stop
+            //    }
+            //};
 
-                    Rating = 3,
-                    ResultType = ResultType.Stop
-                }
-            };
-
-            trades.ForEach(x =>
-            {
-                x.RiskRewardRatio = CalculationHelper.GetRiskRewardRatio(x.PriceEntry, x.PriceStop, x.PriceTake);
-                x.Profit = CalculationHelper.GetProfit(x.PriceEntry, x.PriceStop, x.PriceTake, x.DepositRisk, x.InitialDeposit);
-            });
+            //trades.ForEach(x =>
+            //{
+            //    x.RiskRewardRatio = CalculationHelper.GetRiskRewardRatio(x.PriceEntry, x.PriceStop, x.PriceTake);
+            //    x.Profit = CalculationHelper.GetProfit(x.PriceEntry, x.PriceStop, x.PriceTake, x.DepositRisk, x.InitialDeposit);
+            //    x.RiskAmount = CalculationHelper.GetRiskAmount(x.InitialDeposit, x.DepositRisk);
+            //});
             modelBuilder.Entity<Trade>().HasOne(x => x.Pair).WithMany(x => x.Trades);
             modelBuilder.Entity<Trade>().HasOne(x => x.Setup).WithMany(x => x.Trades);
-            modelBuilder.Entity<Trade>().HasData(trades);
+            //modelBuilder.Entity<Trade>().HasData(trades);
 
         }
     }

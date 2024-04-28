@@ -5,7 +5,7 @@ using TM.Application.Common.Models;
 using TM.Application.Trades.Queries;
 using TM.Domain.Entities;
 
-namespace TM.Application.Trades.Handlers.GetAllTrades
+namespace TM.Application.Trades.Handlers
 {
     public class GetTradeByIdHandler(IRepositoryBase<Trade> repository, IMapper mapper) : IRequestHandler<GetTradeByIdQuery, TradeDTO>
     {

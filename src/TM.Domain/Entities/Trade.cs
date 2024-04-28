@@ -12,6 +12,7 @@ namespace TM.Domain.Entities
         public DateTime Date { get; set; }
 
         public required double InitialDeposit { get; set; }
+        public double RiskAmount { get; set; }
         public required double PriceEntry { get; set; }
         public required double PriceStop { get; set; }
         public required double PriceTake { get; set; }
@@ -23,7 +24,7 @@ namespace TM.Domain.Entities
 
         public PositionType PositionType { get; set; }
         public DirectionType DirectionType { get; set; }
-        public ResultType ResultType { get; set; }
+        public ResultType? ResultType { get; set; }
         public int Rating { get; set; }
 
         //Navigation

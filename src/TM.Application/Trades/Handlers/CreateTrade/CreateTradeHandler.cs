@@ -2,25 +2,26 @@
 using MediatR;
 using TM.Application.Common.Helpers;
 using TM.Application.Common.Interfaces;
-using TM.Application.Trades.Commands.CreateTrade;
+using TM.Application.Common.Models;
+using TM.Application.Trades.Commands;
 using TM.Domain.Entities;
 
-namespace TM.Application.Trades.Handlers.CreateTrade
+namespace TM.Application.Trades.Handlers
 {
-    public class CreateTradeHandler(IRepositoryBase<Trade> repository, IMapper mapper) : IRequestHandler<CreateTradeCommand>
+    public class CreateTradeHandler(IRepositoryBase<Trade> repository, IMapper mapper) : IRequestHandler<CreateTradeCommand, TradeDTO>
     {
         private readonly IRepositoryBase<Trade> _repository = repository;
         private readonly IMapper _mapper = mapper;
 
-        public async Task Handle(CreateTradeCommand request, CancellationToken cancellationToken)
+        public async Task<TradeDTO> Handle(CreateTradeCommand request, CancellationToken cancellationToken)
         {
             var trade = _mapper.Map<Trade>(request.TradeDTO);
-            trade.ID = Guid.NewGuid().ToString();
-            trade.UserID = Guid.NewGuid().ToString();
-            trade.Date = DateTime.Now;
-            trade.RiskRewardRatio = CalculationHelper.GetRiskRewardRatio(trade.PriceEntry, trade.PriceStop, trade.PriceTake);
-            trade.Profit = CalculationHelper.GetProfit(trade.PriceEntry, trade.PriceStop, trade.PriceTake, trade.DepositRisk, trade.InitialDeposit);
-            await _repository.AddAsync(trade);
+
+            trade.Inizialize(false);
+
+            var result = await _repository.AddAsync(trade);
+
+            return _mapper.Map<TradeDTO>(result);
         }
     }
 }

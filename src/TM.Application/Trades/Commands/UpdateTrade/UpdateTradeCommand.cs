@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using TM.Application.Common.Models;
 
-namespace TM.Application.Trades.Commands.UpdateTrade
+namespace TM.Application.Trades.Commands
 {
     public class UpdateTradeCommand(TradeDTO tradeDTO) : IRequest
     {

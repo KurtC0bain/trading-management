@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TM.Application.Common.Models;
-using TM.Application.Trades.Commands.CreateTrade;
-using TM.Application.Trades.Commands.UpdateTrade;
+using TM.Application.Trades.Commands;
 using TM.Application.Trades.Queries;
+using TM.Application.Validation;
 
 namespace TM.API.Controllers
 {
@@ -33,23 +33,33 @@ namespace TM.API.Controllers
         }
 
         [HttpPost("trades")]
-        public async Task<IActionResult> CreateTrade(TradeDTO trade)
+        public async Task<IActionResult> CreateTrade([FromBody]TradeDTO trade)
         {
-            var query = new CreateTradeCommand(trade);
+            var command = new CreateTradeCommand(trade, "test");
 
-            await _mediator.Send(query);
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+
+        [HttpPut("trades")]
+        public async Task<IActionResult> UpdateTrade([FromBody] TradeDTO trade)
+        {
+            var command = new UpdateTradeCommand(trade);
+
+            await _mediator.Send(command);
 
             return trade is not null ? Ok(trade) : NotFound();
         }
 
-        [HttpPut("trades")]
-        public async Task<IActionResult> UpdateTrade(TradeDTO trade)
+        [HttpDelete("trades/{tradeId}")]
+        public async Task<IActionResult> DeleteTrade(string tradeId)
         {
-            var query = new UpdateTradeCommand(trade);
+            var command = new DeleteTradeCommand(tradeId);
 
-            await _mediator.Send(query);
+            await _mediator.Send(command);
 
-            return trade is not null ? Ok(trade) : NotFound();
+            return Ok();
         }
 
     }

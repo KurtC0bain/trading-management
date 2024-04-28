@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using TM.Application.Common.Interfaces;
-using TM.Domain.Entities;
+using System.Reflection;
+using TM.Application.Behaviour;
 
 namespace TM.Application
 {
@@ -12,7 +13,11 @@ namespace TM.Application
             var assembly = typeof(DependencyInjection).Assembly;
 
             services.AddMediatR(configuration =>
-                configuration.RegisterServicesFromAssembly(assembly));
+            {
+                configuration.RegisterServicesFromAssembly(assembly);
+
+                configuration.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+            });
 
             services.AddValidatorsFromAssembly(assembly);
 

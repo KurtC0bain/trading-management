@@ -25,19 +25,19 @@ namespace TM.Infrastructure.Persistance.Repositories
             return base.FindByConditionAsync(expression);
         }
 
-        public override async Task AddAsync(Trade entity)
+        public override async Task<Trade> AddAsync(Trade entity)
         {
-            await base.AddAsync(entity);
+            return await base.AddAsync(entity);
         }
 
-        public override Task UpdateAsync(Trade entity)
+        public override async Task UpdateAsync(Trade entity)
         {
-            return base.UpdateAsync(entity);
+            await base.UpdateAsync(entity);
         }
 
-        public override Task DeleteAsync(Trade entity)
+        public override async Task DeleteAsync(object id)
         {
-            return base.DeleteAsync(entity);
+            await base.DeleteAsync(id);
         }
     }
 }

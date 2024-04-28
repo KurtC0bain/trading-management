@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using TM.Application.Common.Models;
 
-namespace TM.Application.Trades.Commands.CreateTrade
+namespace TM.Application.Trades.Commands
 {
-    public class CreateTradeCommand(TradeDTO tradeDTO) : IRequest
+    public class CreateTradeCommand(TradeDTO tradeDTO, string test) : IRequest<TradeDTO>
     {
-        public TradeDTO TradeDTO { get; set; } = tradeDTO;
+        public string test {  get; } = test;
+        public TradeDTO TradeDTO { get; } = tradeDTO;
     }
 }
