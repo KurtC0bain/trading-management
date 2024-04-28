@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using TM.Domain.Entities;
 
 namespace TM.Infrastructure.Persistance.Repositories
@@ -7,7 +8,11 @@ namespace TM.Infrastructure.Persistance.Repositories
     {
         public override async Task<List<Trade>> GetAllAsync()
         {
-            return await base.GetAllAsync();
+            return await Context.
+                Trades.
+                Include(s => s.Setup).
+                Include(p => p.Pair).
+                ToListAsync();
         }
 
         public override Task<Trade?> FindByIdAsync(object id)

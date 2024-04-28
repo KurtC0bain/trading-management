@@ -4,9 +4,9 @@ using TM.Application.Common.Interfaces;
 
 namespace TM.Infrastructure.Persistance.Repositories
 {
-    public abstract class RepositoryBase<TEntity>(DbContext context) : IRepositoryBase<TEntity> where TEntity : class
+    public abstract class RepositoryBase<TEntity>(TradeManagementDbContext context) : IRepositoryBase<TEntity> where TEntity : class
     {
-        protected DbContext Context { get; private set; } = context;
+        protected TradeManagementDbContext Context { get; private set; } = context;
         protected DbSet<TEntity> DbSet { get; private set; } = context.Set<TEntity>();
 
         public virtual async Task<List<TEntity>> GetAllAsync()

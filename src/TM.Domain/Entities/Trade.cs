@@ -4,28 +4,36 @@ namespace TM.Domain.Entities
 {
     public class Trade
     {
-        public Guid ID { get; set; }
-        public required string UserID { get; set; }
+        public string ID { get; set; }
+        public string UserID { get; set; }
+        public string SetupID { get; set; }
+        public string PairID { get; set; }
+
         public DateTime Date { get; set; }
-        public double Price { get; set; }
+
+        public required double InitialDeposit { get; set; }
+        public required double PriceEntry { get; set; }
+        public required double PriceStop { get; set; }
+        public required double PriceTake { get; set; }
+
+        public double Profit { get; set; }
+        public double DepositRisk { get; set; }
+        public double RiskRewardRatio { get; set; }
+
+
         public PositionType PositionType { get; set; }
         public DirectionType DirectionType { get; set; }
-        public bool IsTest => Setup is null;
-        public int Rating { get; set; }
-        public double BudgetRisk { get; set; }
-        public double RiskRevardRatio { get; set; }
         public ResultType ResultType { get; set; }
-        public double Profit { get; set; }
-        
+        public int Rating { get; set; }
+
         //Navigation
-        public IEnumerable<Factor>? Factors { get; set; }
         public Setup? Setup { get; set; }
-        public required Pair Pair { get; set; }
+        public Pair Pair { get; set; }
 
 
         public override string ToString()
         {
-            return $"{Pair} - {Date} - {Price} - {ResultType}";
+            return $"{Pair} - {Date} - {Profit} - {ResultType}";
         }
     }
 }

@@ -5,17 +5,25 @@ namespace TM.Application.Common.Models
 {
     public class TradeDTO
     {
-        public required string PairID { get; set; }
-        public double Price { get; set; }
-        public PositionType PositionType { get; set; }
-        public DirectionType DirectionType { get; set; }
-        public int Rating { get; set; }
-        public double BudgetRisk { get; set; }
-        public double RiskRevardRatio { get; set; }
-        public ResultType ResultType { get; set; }
-        public double Profit { get; set; }
-        public List<string>? FactorsIDs { get; set; }
+        public string? ID { get; set; }
+        public string? UserID { get; set; }
         public string SetupID { get; set; }
+        public string PairID { get; set; }
 
+        public DateTime Date { get; set; } // on back-end
+
+        public required double InitialDeposit { get; set; }
+        public required double PriceEntry { get; set; }
+        public required double PriceStop { get; set; }
+        public required double PriceTake { get; set; }
+
+        public double Profit { get; set; }// on back-end
+        public double DepositRisk { get; set; }
+        public double RiskRewardRatio { get; set; }// on back-end
+
+        public string PositionType { get; set; }
+        public string DirectionType { get; set; }
+        public string ResultType { get; set; }
+        public int Rating { get; set; }
     }
 }

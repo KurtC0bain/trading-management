@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TM.Application.Common.Models;
 using TM.Application.Trades.Commands.CreateTrade;
+using TM.Application.Trades.Commands.UpdateTrade;
 using TM.Application.Trades.Queries;
 
 namespace TM.API.Controllers
@@ -22,7 +23,7 @@ namespace TM.API.Controllers
         }
 
         [HttpGet("trades/{tradeId}")]
-        public async Task<IActionResult> GetTradeById(Guid tradeId)
+        public async Task<IActionResult> GetTradeById(string tradeId)
         {
             var query = new GetTradeByIdQuery(tradeId);
 
@@ -40,5 +41,16 @@ namespace TM.API.Controllers
 
             return trade is not null ? Ok(trade) : NotFound();
         }
+
+        [HttpPut("trades")]
+        public async Task<IActionResult> UpdateTrade(TradeDTO trade)
+        {
+            var query = new UpdateTradeCommand(trade);
+
+            await _mediator.Send(query);
+
+            return trade is not null ? Ok(trade) : NotFound();
+        }
+
     }
 }

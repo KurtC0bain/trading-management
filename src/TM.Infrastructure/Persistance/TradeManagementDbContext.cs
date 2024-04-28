@@ -2,6 +2,7 @@
 using System.Reflection;
 using TM.Application.Common.Interfaces;
 using TM.Domain.Entities;
+using TM.Infrastructure.Persistance.Extensrions;
 
 namespace TM.Infrastructure.Persistance
 {
@@ -11,9 +12,9 @@ namespace TM.Infrastructure.Persistance
         public DbSet<Pair> Pairs { get; set; }
         public DbSet<Setup> Setups { get; set; }
         public DbSet<Factor> Factors { get; set; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Seed();
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }

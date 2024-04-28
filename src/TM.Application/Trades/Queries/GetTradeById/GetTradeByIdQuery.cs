@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using TM.Domain.Entities;
+using TM.Application.Common.Models;
 
 namespace TM.Application.Trades.Queries
 {
-    public class GetTradeByIdQuery(Guid tradeId) : IRequest<Trade>
+    public class GetTradeByIdQuery(string tradeId) : IRequest<TradeDTO>
     {
-        public Guid TradeId { get; } = tradeId;
+        public string TradeId { get; } = tradeId;
     }
 }

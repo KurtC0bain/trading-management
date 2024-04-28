@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TM.Infrastructure.Persistance;
 
@@ -11,9 +12,11 @@ using TM.Infrastructure.Persistance;
 namespace TM.Infrastructure.Persistance.Migrations
 {
     [DbContext(typeof(TradeManagementDbContext))]
-    partial class TradeManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240427231623_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
