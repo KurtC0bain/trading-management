@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TM.Domain.Entities;
+﻿using TM.Domain.Entities;
 using TM.Domain.Enums;
 
 namespace TM.Application.Common.Helpers
@@ -24,7 +18,7 @@ namespace TM.Application.Common.Helpers
             {
                 trade.Profit = CalculationHelper.GetProfit(trade.PriceEntry, trade.PriceStop, trade.PriceTake, trade.DepositRisk, trade.InitialDeposit, trade.PositionType);
             }
-            else if(trade.ResultType == ResultType.Stop)
+            else if (trade.ResultType == ResultType.Stop)
             {
                 trade.Profit = -trade.RiskAmount;
             }

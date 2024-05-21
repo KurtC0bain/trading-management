@@ -28,11 +28,12 @@ namespace TM.Infrastructure.Persistance.Repositories
             return entity;
         }
 
-        public virtual async Task UpdateAsync(TEntity entity)
+        public virtual async Task<TEntity> UpdateAsync(TEntity entity)
         {
             DbSet.Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
+            return entity;
         }
 
         public virtual async Task DeleteAsync(object id)

@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 using TM.Application.Behaviour;
+using TM.Application.Common.Models;
+using TM.Application.Validation;
 
 namespace TM.Application
 {
@@ -20,7 +21,7 @@ namespace TM.Application
             });
 
             services.AddValidatorsFromAssembly(assembly);
-
+            //services.AddTransient<IValidator<TradeDTO>, TradeDTOValidator>();
             return services;
         }
     }

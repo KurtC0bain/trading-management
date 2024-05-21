@@ -13,7 +13,7 @@ namespace TM.Application.Common.Interfaces
         Task<List<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> expression);
         Task<TEntity> FindByIdAsync(object id);
         Task<TEntity> AddAsync(TEntity entity);
-        Task UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
         Task DeleteAsync(object id);
 
     }

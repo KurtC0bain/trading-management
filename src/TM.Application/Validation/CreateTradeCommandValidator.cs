@@ -8,8 +8,6 @@ namespace TM.Application.Validation
     {
         public CreateTradeCommandValidator()
         {
-            RuleFor(x => x.TradeDTO.InitialDeposit == 0);
-
             RuleFor(x => x.TradeDTO.Profit)
                 .GreaterThan(0).When(x => string.Equals(x.TradeDTO.ResultType, ResultType.Take.ToString()))
                 .Equal(0).When(x => string.Equals(x.TradeDTO.ResultType,ResultType.BreakEven.ToString()) || x.TradeDTO.ResultType is null)
@@ -22,7 +20,7 @@ namespace TM.Application.Validation
             RuleFor(x => x.TradeDTO.InitialDeposit).GreaterThan(0).NotEmpty();
 
             RuleFor(x => x.TradeDTO.PriceEntry).GreaterThan(0).NotEmpty();
-
+            
             RuleFor(x => x.TradeDTO.PriceTake)
                 .LessThan(x => x.TradeDTO.PriceEntry)
                     .When(x => string.Equals(x.TradeDTO.PositionType, PositionType.Short.ToString()))
@@ -51,7 +49,7 @@ namespace TM.Application.Validation
             RuleFor(x => x.TradeDTO.SetupID).NotNull();
             RuleFor(x => x.TradeDTO.PairID).NotNull();
 
-
+            RuleFor(x => x.TradeDTO.Profit).NotNull().When(x => string.Equals(x.TradeDTO.ResultType, ResultType.EarlyExit.ToString()));
         }
     }
 }

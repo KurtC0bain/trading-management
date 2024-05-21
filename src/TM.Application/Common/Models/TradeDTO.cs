@@ -5,7 +5,7 @@ namespace TM.Application.Common.Models
 {
     public class TradeDTO
     {
-        public string? ID { get; set; }
+        public string? ID { get; set; } // on back-end
         public string? UserID { get; set; }
         public string SetupID { get; set; }
         public string PairID { get; set; }
@@ -13,12 +13,12 @@ namespace TM.Application.Common.Models
         public DateTime Date { get; set; } // on back-end
 
         public required double InitialDeposit { get; set; }
-        public double RiskAmount { get; set; }
+        public double RiskAmount { get; set; } // on back-end
         public required double PriceEntry { get; set; }
         public required double PriceStop { get; set; }
         public required double PriceTake { get; set; }
 
-        public double Profit { get; set; }// on back-end
+        public double Profit { get; set; } // on back-end
         public required double DepositRisk { get; set; }
         public double? RiskRewardRatio { get; set; }// on back-end
 

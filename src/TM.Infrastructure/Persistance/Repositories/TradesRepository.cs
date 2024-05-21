@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using TM.Application.Common.Models;
 using TM.Domain.Entities;
 
 namespace TM.Infrastructure.Persistance.Repositories
@@ -30,9 +31,9 @@ namespace TM.Infrastructure.Persistance.Repositories
             return await base.AddAsync(entity);
         }
 
-        public override async Task UpdateAsync(Trade entity)
+        public override async Task<Trade> UpdateAsync(Trade entity)
         {
-            await base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         public override async Task DeleteAsync(object id)
