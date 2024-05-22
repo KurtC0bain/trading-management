@@ -36,12 +36,17 @@ namespace TM.Infrastructure.Persistance.Repositories
             return entity;
         }
 
-        public virtual async Task DeleteAsync(object id)
+        public virtual async Task<TEntity> DeleteAsync(object id)
         {
             var trade = await DbSet.FindAsync(id);
+            if (trade == null)
+                return trade;
+
             DbSet.Attach(trade);
             DbSet.Remove(trade);
             await Context.SaveChangesAsync();
+
+            return trade;
         }
     }
 }

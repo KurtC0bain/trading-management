@@ -57,9 +57,9 @@ namespace TM.API.Controllers
         {
             var command = new DeleteTradeCommand(tradeId);
 
-            await _mediator.Send(command);
+            var deletedTrade = await _mediator.Send(command);
 
-            return Ok();
+            return ResponseHelper.HandleResponse(deletedTrade);
         }
 
     }

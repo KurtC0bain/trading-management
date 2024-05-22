@@ -36,9 +36,9 @@ namespace TM.Infrastructure.Persistance.Repositories
             return await base.UpdateAsync(entity);
         }
 
-        public override async Task DeleteAsync(object id)
+        public override async Task<Trade> DeleteAsync(object id)
         {
-            await base.DeleteAsync(id);
+            return await base.DeleteAsync(id);
         }
     }
 }

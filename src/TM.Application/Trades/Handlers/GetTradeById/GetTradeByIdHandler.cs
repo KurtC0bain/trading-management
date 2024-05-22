@@ -17,6 +17,7 @@ namespace TM.Application.Trades.Handlers
         public async Task<Result<InternalError, TradeResponse>> Handle(GetTradeByIdQuery request, CancellationToken cancellationToken)
         {
             var trade = await _repository.FindByIdAsync(request.TradeId);
+
             if (trade is null)
                 return new NotFoundError(request.TradeId);
 
