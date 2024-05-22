@@ -1,12 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using TM.API.Helpers;
-using TM.Application.Common.Models;
-using TM.Application.Error.Models;
+using TM.Application.Common.Models.Trades;
 using TM.Application.Trades.Commands;
 using TM.Application.Trades.Queries;
-using TM.Domain.Entities;
 
 namespace TM.API.Controllers
 {
@@ -36,23 +33,23 @@ namespace TM.API.Controllers
         }
 
         [HttpPost("trades")]
-        public async Task<IActionResult> CreateTrade([FromBody] TradeDTO trade)
+        public async Task<IActionResult> CreateTrade([FromBody] CreateTradeRequest trade)
         {
             var command = new CreateTradeCommand(trade);
 
-            var result = await _mediator.Send(command);
+            var createdTrade = await _mediator.Send(command);
 
-            return ResponseHelper.HandleResponse(result);
+            return ResponseHelper.HandleResponse(createdTrade);
         }
 
         [HttpPut("trades")]
-        public async Task<IActionResult> UpdateTrade([FromBody] TradeDTO trade)
+        public async Task<IActionResult> UpdateTrade([FromBody] UpdateTradeRequest trade)
         {
             var command = new UpdateTradeCommand(trade);
 
             var updatedTrade = await _mediator.Send(command);
 
-            return updatedTrade is not null ? Ok(updatedTrade) : NotFound();
+            return ResponseHelper.HandleResponse(updatedTrade);
         }
 
         [HttpDelete("trades/{tradeId}")]

@@ -1,9 +1,9 @@
 ﻿using TM.Domain.Entities;
 using TM.Domain.Enums;
 
-namespace TM.Application.Common.Models
+namespace TM.Application.Common.Models.Trades
 {
-    public class TradeDTO
+    public class TradeResponse
     {
         public string? ID { get; set; } // on back-end
         public string? UserID { get; set; }

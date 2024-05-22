@@ -1,16 +1,11 @@
 ﻿using MediatR;
-using TM.Application.Common.Models;
+using TM.Application.Common.Models.Trades;
 using TM.Application.Error.Models;
 
 namespace TM.Application.Trades.Commands
 {
-    public class CreateTradeCommand : IRequest<Result<InternalError, TradeDTO>>
+    public class CreateTradeCommand(CreateTradeRequest tradeRequest) : IRequest<Result<InternalError, TradeResponse>>
     {
-        public TradeDTO TradeDTO { get; }
-
-        public CreateTradeCommand(TradeDTO tradeDTO)
-        {
-            TradeDTO = tradeDTO ?? throw new ArgumentNullException(nameof(tradeDTO));
-        }
+        public CreateTradeRequest TradeRequest { get; } = tradeRequest ?? throw new ArgumentNullException(nameof(tradeRequest));
     }
 }
