@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TM.Application.Common.Interfaces;
@@ -12,11 +13,16 @@ namespace TM.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+
+            services.AddTransient<ITradingManagementDbContext, TradeManagementDbContext>();
+
             services.AddDbContext<TradeManagementDbContext>
                 (options => options.
                             UseSqlServer(configuration.GetConnectionString("SqlServer")));
 
-            services.AddTransient<ITradingManagementDbContext, TradeManagementDbContext>();
+            services.AddIdentityApiEndpoints<IdentityUser>()
+                .AddEntityFrameworkStores<TradeManagementDbContext>();
+
 
             services.AddTransient<IRepositoryBase<Trade>, TradesRepository>();
 

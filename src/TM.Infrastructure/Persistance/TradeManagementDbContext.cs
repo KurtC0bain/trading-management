@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Reflection.Emit;
 using TM.Application.Common.Interfaces;
 using TM.Domain.Entities;
 using TM.Infrastructure.Persistance.Extensrions;
 
 namespace TM.Infrastructure.Persistance
 {
-    public class TradeManagementDbContext(DbContextOptions options) : DbContext(options), ITradingManagementDbContext
+    public class TradeManagementDbContext(DbContextOptions<TradeManagementDbContext> options) : IdentityDbContext<IdentityUser>(options), ITradingManagementDbContext
     {
         public DbSet<Trade> Trades { get; set; }
         public DbSet<Pair> Pairs { get; set; }
@@ -16,6 +19,8 @@ namespace TM.Infrastructure.Persistance
         {
             builder.Seed();
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(builder);
+        
         }
     }
 }

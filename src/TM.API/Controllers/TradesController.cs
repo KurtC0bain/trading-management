@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TM.API.Helpers;
 using TM.Application.Common.Models.Trades;
@@ -12,7 +13,7 @@ namespace TM.API.Controllers
     {
         private readonly IMediator _mediator = mediator;
 
-        [HttpGet("trades")]
+        [HttpGet("trades"), Authorize]
         public async Task<IActionResult> GetAllTrades()
         {
             var query = new GetAllTradesQuery();
