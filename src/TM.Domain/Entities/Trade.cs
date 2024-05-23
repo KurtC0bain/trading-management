@@ -9,7 +9,7 @@ namespace TM.Domain.Entities
         public string SetupID { get; set; }
         public string PairID { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public required double InitialDeposit { get; set; }
         public double RiskAmount { get; set; }

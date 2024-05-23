@@ -21,7 +21,16 @@ namespace TM.Infrastructure
                             UseSqlServer(configuration.GetConnectionString("SqlServer")));
 
             services.AddIdentityApiEndpoints<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<TradeManagementDbContext>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+            });
 
 
             services.AddTransient<IRepositoryBase<Trade>, TradesRepository>();

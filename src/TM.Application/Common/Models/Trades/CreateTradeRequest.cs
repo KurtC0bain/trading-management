@@ -2,9 +2,9 @@
 {
     public class CreateTradeRequest
     {
-        public string? UserID { get; set; }
-        public string SetupID { get; set; }
-        public string PairID { get; set; }
+        public required string UserID { get; set; }
+        public required string SetupID { get; set; }
+        public required string PairID { get; set; }
 
         public DateTime Date { get; set; }
 

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace TM.API.Controllers
 {
     [ApiController]
-    [Route("")]
+    [Authorize]
     public class AuthController : ControllerBase    
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -16,7 +16,7 @@ namespace TM.API.Controllers
         }
 
         [HttpPost]
-        [Route("logout"), Authorize]
+        [Route("logout")]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

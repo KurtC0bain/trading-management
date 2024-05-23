@@ -4,7 +4,7 @@ using TM.Application.Error.Models;
 
 namespace TM.API.Helpers
 {
-    internal class ResponseHelper
+    public class ResponseHelper
     {
         public static IActionResult HandleError(InternalError error)
         {

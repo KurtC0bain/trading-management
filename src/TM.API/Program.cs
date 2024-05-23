@@ -5,6 +5,8 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 using System.Text.Json.Serialization;
+using TM.API.Helpers;
+using TM.API.Middlewares;
 using TM.Application;
 using TM.Application.Common.Interfaces;
 using TM.Application.MapperProfiles;
@@ -47,6 +49,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
 app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
@@ -56,5 +60,17 @@ app.UseAuthorization();
 
 
 app.MapControllers();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SeedHelper.SeedRolesAsync(services);
+}
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SeedHelper.SeedAdminAsync(services);
+}
 
 app.Run();

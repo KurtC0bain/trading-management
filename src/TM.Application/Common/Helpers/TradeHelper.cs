@@ -8,8 +8,8 @@ namespace TM.Application.Common.Helpers
         public static void Inizialize(this Trade trade, bool isUpdate)
         {
             trade.ID = isUpdate ? trade.ID : Guid.NewGuid().ToString();
-            trade.UserID = Guid.NewGuid().ToString(); //temp
             trade.Date = isUpdate ? trade.Date : DateTime.Now;
+            trade.Date = trade.Date is null ? DateTime.Now : trade.Date;
 
             trade.RiskRewardRatio = CalculationHelper.GetRiskRewardRatio(trade.PriceEntry, trade.PriceStop, trade.PriceTake);
             trade.RiskAmount = CalculationHelper.GetRiskAmount(trade.InitialDeposit, trade.DepositRisk);
