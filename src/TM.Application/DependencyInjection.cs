@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using TM.Application.Behaviour;
 using TM.Application.Common.Models;
+using TM.Application.MapperProfiles;
 using TM.Application.Validation;
 
 namespace TM.Application
@@ -22,6 +23,8 @@ namespace TM.Application
 
             services.AddValidatorsFromAssembly(assembly);
             //services.AddTransient<IValidator<TradeDTO>, TradeDTOValidator>();
+            services.AddAutoMapper(typeof(TradeProfile));
+            services.AddAutoMapper(typeof(AssetProfile));
             return services;
         }
     }

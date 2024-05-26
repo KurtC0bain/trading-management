@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TM.Application.Common.Interfaces;
 using TM.Domain.Entities;
+using TM.Infrastructure.Binance.API.Services;
 using TM.Infrastructure.Persistance;
 using TM.Infrastructure.Persistance.Repositories;
 
@@ -34,6 +35,7 @@ namespace TM.Infrastructure
 
 
             services.AddTransient<IRepositoryBase<Trade>, TradesRepository>();
+            services.AddTransient<IAssetsService, AssetsService>();
 
             return services;
         }

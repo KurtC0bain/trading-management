@@ -12,6 +12,7 @@ namespace TM.API.Helpers
             {
                 NotFoundError notFoundError => new NotFoundObjectResult(new ErrorResponse(notFoundError.Message, StatusCodes.Status404NotFound)),
                 ValidationError validationError => new BadRequestObjectResult(new ErrorResponse(validationError.Message, StatusCodes.Status400BadRequest, errors: validationError.Errors)),
+                WrongAssetSymbolError wrongAssetSymbolError => new BadRequestObjectResult(new ErrorResponse(wrongAssetSymbolError.Message, StatusCodes.Status400BadRequest)),
                 _ => new ObjectResult(new ErrorResponse(error.Message, StatusCodes.Status500InternalServerError))
                 {
                     StatusCode = StatusCodes.Status500InternalServerError

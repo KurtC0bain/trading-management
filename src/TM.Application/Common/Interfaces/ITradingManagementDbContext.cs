@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using TM.Domain.Entities;
 
 namespace TM.Application.Common.Interfaces
