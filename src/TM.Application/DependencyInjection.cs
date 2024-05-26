@@ -22,9 +22,12 @@ namespace TM.Application
             });
 
             services.AddValidatorsFromAssembly(assembly);
+
             services.AddAutoMapper(typeof(TradeProfile));   
             services.AddAutoMapper(typeof(AssetProfile));
             services.AddAutoMapper(typeof(PairsProfile));
+            services.AddAutoMapper(typeof(FactorsProfile));
+
             return services;
         }
     }
