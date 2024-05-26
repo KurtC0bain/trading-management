@@ -35,6 +35,8 @@ namespace TM.Infrastructure
 
 
             services.AddTransient<IRepositoryBase<Trade>, TradesRepository>();
+            services.AddTransient<IRepositoryBase<Pair>, PairsRepository>();
+
             services.AddTransient<IAssetsService, AssetsService>();
 
             return services;

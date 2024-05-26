@@ -18,6 +18,7 @@ namespace TM.Application.MapperProfiles
                 .ForMember(x => x.WeightedAveragePrice, opt => opt.MapFrom(x => x.WeightedAveragePrice))
                 .ReverseMap();
 
+
         }
     }
 

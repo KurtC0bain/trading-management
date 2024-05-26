@@ -1,15 +1,10 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using System.Text;
 using System.Text.Json.Serialization;
 using TM.API.Helpers;
 using TM.API.Middlewares;
 using TM.Application;
-using TM.Application.Common.Interfaces;
-using TM.Application.MapperProfiles;
 using TM.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -22,9 +22,9 @@ namespace TM.Application
             });
 
             services.AddValidatorsFromAssembly(assembly);
-            //services.AddTransient<IValidator<TradeDTO>, TradeDTOValidator>();
-            services.AddAutoMapper(typeof(TradeProfile));
+            services.AddAutoMapper(typeof(TradeProfile));   
             services.AddAutoMapper(typeof(AssetProfile));
+            services.AddAutoMapper(typeof(PairsProfile));
             return services;
         }
     }
