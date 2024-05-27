@@ -10,6 +10,5 @@ namespace TM.Application.Factors.Commands
         public FactorRequest FactorRequest { get; set; } = factorRequest;
         public string FactorId { get; set; } = id;
         public ClaimsPrincipal CurrentUser { get; set; } = currentUser;
-
     }
 }

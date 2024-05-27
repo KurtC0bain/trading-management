@@ -13,14 +13,14 @@ namespace TM.Infrastructure.Persistance.Repositories
                 ToListAsync();
         }
 
-        public override Task<Pair?> FindByIdAsync(object id)
+        public override async Task<Pair?> FindByIdAsync(object id)
         {
-            return base.FindByIdAsync(id);
+            return await base.FindByIdAsync(id);
         }
 
-        public override Task<List<Pair>> FindByConditionAsync(Expression<Func<Pair, bool>> expression)
+        public override async Task<List<Pair>> FindByConditionAsync(Expression<Func<Pair, bool>> expression)
         {
-            return base.FindByConditionAsync(expression);
+            return await base.FindByConditionAsync(expression);
         }
 
         public override async Task<Pair> AddAsync(Pair entity)

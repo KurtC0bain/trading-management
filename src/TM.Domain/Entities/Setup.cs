@@ -8,8 +8,7 @@
         public string Description { get; set; }
 
         //Navigation
-        public IEnumerable<Factor> Factors { get; set; }
+        public ICollection<Factor> Factors { get; set; }
         public IEnumerable<Trade> Trades { get; set; }
-
     }
 }

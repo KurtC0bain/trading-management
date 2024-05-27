@@ -32,7 +32,6 @@ namespace TM.Application.Behaviour
                 if (failures.Count != 0)
                 {
                     var validationError = new ValidationError(failures.Select(f => f.ErrorMessage));
-                    //return validationError;
                 }
             }
 

@@ -9,6 +9,5 @@ namespace TM.Application.Factors.Commands
     {
         public string FactorId { get; set; } = factorId;
         public ClaimsPrincipal CurrentUser { get; set; } = currentUser;
-
     }
 }

@@ -18,7 +18,7 @@ namespace TM.Application.Factors.Handlers
         public async Task<Result<InternalError, FactorResponse>> Handle(DeleteFactorCommand request, CancellationToken cancellationToken)
         {
             var factorToDelete = await _repository.FindByIdAsync(request.FactorId);
-            if (factorToDelete != null)
+            if (factorToDelete is null)
                 return new NotFoundError(request.FactorId);
 
 

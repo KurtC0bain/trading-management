@@ -27,6 +27,7 @@ namespace TM.Application
             services.AddAutoMapper(typeof(AssetProfile));
             services.AddAutoMapper(typeof(PairsProfile));
             services.AddAutoMapper(typeof(FactorsProfile));
+            services.AddAutoMapper(typeof(SetupProfile));
 
             return services;
         }

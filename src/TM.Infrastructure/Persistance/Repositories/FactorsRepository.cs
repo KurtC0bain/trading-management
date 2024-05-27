@@ -13,9 +13,9 @@ namespace TM.Infrastructure.Persistance.Repositories
                 ToListAsync();
         }
 
-        public override Task<Factor?> FindByIdAsync(object id)
+        public override async Task<Factor?> FindByIdAsync(object id)
         {
-            return base.FindByIdAsync(id);
+            return await base.FindByIdAsync(id);
         }
 
         public override Task<List<Factor>> FindByConditionAsync(Expression<Func<Factor, bool>> expression)

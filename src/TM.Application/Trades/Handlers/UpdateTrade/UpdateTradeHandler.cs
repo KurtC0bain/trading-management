@@ -11,10 +11,11 @@ using TM.Domain.Entities;
 
 namespace TM.Application.Trades.Handlers
 {
-    public class UpdateTradeHandler(IRepositoryBase<Trade> repository, IMapper mapper, IValidator<UpdateTradeCommand> validator, UserManager<IdentityUser> userManager)
+    public class UpdateTradeHandler(IRepositoryBase<Trade> repository, IRepositoryBase<Setup> setupRepository, IMapper mapper, IValidator<UpdateTradeCommand> validator, UserManager<IdentityUser> userManager)
         : IRequestHandler<UpdateTradeCommand, Result<InternalError, TradeResponse>>
     {
         private readonly IRepositoryBase<Trade> _repository = repository;
+        private readonly IRepositoryBase<Setup> _setupRepository = setupRepository;
         private readonly IMapper _mapper = mapper;
         private readonly IValidator<UpdateTradeCommand> _validator = validator;
         private readonly UserManager<IdentityUser> _userManager = userManager;
@@ -33,6 +34,11 @@ namespace TM.Application.Trades.Handlers
             {
                 return new Result<InternalError, TradeResponse>(new WrongUserError());
             }
+
+            var setup = await _setupRepository.FindByIdAsync(request.TradeRequest.SetupID);
+            if (setup is null)
+                return new Result<InternalError, TradeResponse>(new NoSetupFoundError(request.TradeRequest.SetupID));
+
 
             var validationResult = await _validator.ValidateAsync(request, cancellationToken);
 

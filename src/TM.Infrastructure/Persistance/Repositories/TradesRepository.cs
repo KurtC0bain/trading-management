@@ -16,14 +16,14 @@ namespace TM.Infrastructure.Persistance.Repositories
                 ToListAsync();
         }
 
-        public override Task<Trade?> FindByIdAsync(object id)
+        public override async Task<Trade?> FindByIdAsync(object id)
         {
-            return base.FindByIdAsync(id);
+            return await base.FindByIdAsync(id);
         }
 
-        public override Task<List<Trade>> FindByConditionAsync(Expression<Func<Trade, bool>> expression)
+        public override async Task<List<Trade>> FindByConditionAsync(Expression<Func<Trade, bool>> expression)
         {
-            return base.FindByConditionAsync(expression);
+            return await base.FindByConditionAsync(expression);
         }
 
         public override async Task<Trade> AddAsync(Trade entity)
