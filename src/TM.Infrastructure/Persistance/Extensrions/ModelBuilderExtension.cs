@@ -25,7 +25,6 @@ namespace TM.Infrastructure.Persistance.Extensrions
                 new() { ID = Guid.NewGuid().ToString(), UserID = Guid.NewGuid().ToString(), Name = "BOS", Description = "Break of structure", Priority = 2},
                 new() { ID = Guid.NewGuid().ToString(), UserID = Guid.NewGuid().ToString(), Name = "FVG", Description = "Fair value gap", Priority = 2}
             };
-            modelBuilder.Entity<Factor>().HasMany(x => x.Setups).WithMany(x => x.Factors);
             modelBuilder.Entity<Factor>().HasData(factors);
 
 
@@ -35,7 +34,6 @@ namespace TM.Infrastructure.Persistance.Extensrions
                 new() { ID = Guid.NewGuid().ToString(), UserID = Guid.NewGuid().ToString(), Name = "Afternoon", Description = "test 2"},
                 new() { ID = Guid.NewGuid().ToString(), UserID = Guid.NewGuid().ToString(), Name = "Evening", Description = "test 3"}
             };
-            modelBuilder.Entity<Setup>().HasMany(x => x.Factors).WithMany(x => x.Setups);
             modelBuilder.Entity<Setup>().HasData(setups);
 
 

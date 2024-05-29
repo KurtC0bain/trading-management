@@ -8,7 +8,8 @@
         WrongUser,
         WrongAssetSymbol,
         NoFactorsFoundError,
-        NoSetupFoundError
+        NoSetupFoundError,
+        NotTradesFoundError
     }
 
     public abstract record InternalError(ErrorReason Reason, string Message);
@@ -18,6 +19,10 @@
     public record UserNotFoundError(string UserId) : InternalError(ErrorReason.UserNotFound, $"User with ID {UserId} does not exist in system.");
     public record WrongAssetSymbolError(string AssetName) : InternalError(ErrorReason.WrongAssetSymbol, $"Asset with name {AssetName} does not exist in system.");
     public record NoFactorsFoundError(IEnumerable<string> Errors) : InternalError(ErrorReason.NoFactorsFoundError, $"Factors erros occured.")
+    {
+        public IEnumerable<string> Errors { get; init; } = Errors;
+    }
+    public record NotTradesFoundError(IEnumerable<string> Errors) : InternalError(ErrorReason.NotTradesFoundError, $"Treades erros occured.")
     {
         public IEnumerable<string> Errors { get; init; } = Errors;
     }
