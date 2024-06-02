@@ -1,12 +1,12 @@
 <ng-container *ngIf="data$ | async as data">
   <div class="register-container">
     <mat-card class="register-card">
-      <mat-card-title class="register-title">Register</mat-card-title>
+      <mat-card-title class="register-title">Log In</mat-card-title>
       <mat-card-content>
-        <tm-register-errors-messages
-          *ngIf="data.registerErrors"
-          [registerErrors]="data.registerErrors"
-        ></tm-register-errors-messages>
+        <tm-login-errors-messages
+          *ngIf="data.loginErrors"
+          [loginErrors]="data.loginErrors"
+        ></tm-login-errors-messages>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Email</mat-label>
@@ -37,26 +37,6 @@
               Password is required
             </mat-error>
           </mat-form-field>
-
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Confirm Password</mat-label>
-            <input
-              matInput
-              type="password"
-              formControlName="confirmPassword"
-              required
-            />
-            <mat-error
-              *ngIf="
-                submitted && form.get('confirmPassword')?.hasError('required')
-              "
-            >
-              Confirm Password is required
-            </mat-error>
-            <mat-error *ngIf="submitted && form.hasError('mismatch')">
-              Passwords do not match
-            </mat-error>
-          </mat-form-field>
           <div class="button-container">
             <button
               mat-raised-button
@@ -65,12 +45,13 @@
               type="submit"
               [disabled]="form.invalid || data.isSubmitting"
             >
-              Register
+              Log In
             </button>
           </div>
           <div class="login-link">
             <p>
-              Have an account? <a routerLink="/login" class="link">Login</a>
+              Don't have an account?
+              <a routerLink="/register" class="link">Register</a>
             </p>
           </div>
         </form>

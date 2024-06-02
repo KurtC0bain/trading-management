@@ -1,0 +1,40 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.app-title {
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-subtitle {
+  font-size: 12px;
+  font-weight: normal;
+  color: #ffffff;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.nav-buttons button {
+  color: #ffffff; /* Ensure button text is always white */
+  margin: 0 8px;
+}
+
+button[mat-icon-button] {
+  margin-left: 8px;
+}
+
+.account-icon-container {
+  position: relative;
+}
+
+button[mat-icon-button] mat-icon {
+  color: #ffffff; /* Ensure icon color is always white */
+}

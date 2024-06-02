@@ -1,2 +1,45 @@
-<div>client is running</div>
-<router-outlet />
+<ng-container *ngIf="data$ | async as data">
+  <mat-toolbar color="primary">
+    <div class="app-title">
+      Trading Management
+      <div class="app-subtitle">
+        Efficiently track and manage trades with precision and confidence
+      </div>
+    </div>
+    <span class="spacer"></span>
+    <div class="nav-buttons">
+      <button mat-button routerLink="/home">Home</button>
+      <button mat-button routerLink="/trades" *ngIf="data.isAuthorized">
+        Trades
+      </button>
+      <button mat-button routerLink="/setups" *ngIf="data.isAuthorized">
+        Setups
+      </button>
+      <button mat-button routerLink="/factors" *ngIf="data.isAuthorized">
+        Factors
+      </button>
+      <button mat-button routerLink="/analysis" *ngIf="data.isAuthorized">
+        Analysis
+      </button>
+    </div>
+    <span class="spacer"></span>
+    <button
+      mat-icon-button
+      matTooltip="Log Out"
+      (click)="logout()"
+      *ngIf="data.isAuthorized"
+    >
+      <mat-icon>logout</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      matTooltip="Log In"
+      routerLink="/login"
+      *ngIf="!data.isAuthorized"
+    >
+      <mat-icon>login</mat-icon>
+    </button>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</ng-container>

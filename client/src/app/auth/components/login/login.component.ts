@@ -15,11 +15,11 @@ import {
   selectValidationErrors,
 } from '../../store/reducers';
 import { combineLatest } from 'rxjs';
-import { RegisterErrorMessages } from '../../../shared/components/registerErrorMessage/registerErrorMessage.components';
+import { LoginErrorMessages } from '../../../shared/components/loginErrorMessage/loginErrorMessage.component';
 
 @Component({
-  selector: 'tm-register',
-  templateUrl: './register.component.html',
+  selector: 'tm-login',
+  templateUrl: './login.component.html',
   standalone: true,
   imports: [
     CommonModule,
@@ -29,37 +29,25 @@ import { RegisterErrorMessages } from '../../../shared/components/registerErrorM
     MatInputModule,
     MatButtonModule,
     RouterLink,
-    RegisterErrorMessages,
+    LoginErrorMessages,
   ],
-  styleUrl: './register.component.css',
+  styleUrl: './login.component.css',
 })
-export class RegisterComponent {
+export class LoginComponent {
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
-    confirmPassword: ['', Validators.required],
   });
 
   submitted = false;
   data$ = combineLatest({
     isSubmitting: this.store.select(selectIsSubmitting),
-    registerErrors: this.store.select(selectValidationErrors),
+    loginErrors: this.store.select(selectValidationErrors),
   });
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
-  passwordMatchValidator(form: FormGroup) {
-    return form.get('password')?.value === form.get('confirmPassword')?.value
-      ? null
-      : { mismatch: true };
-  }
-
   onSubmit() {
-    if (
-      this.form.get('password')?.value !==
-      this.form.get('confirmPassword')?.value
-    )
-      return;
     this.submitted = true;
     if (this.form.valid) {
       console.log(this.form.getRawValue());
@@ -67,7 +55,7 @@ export class RegisterComponent {
         email: this.form.get('email')?.getRawValue(),
         password: this.form.get('password')?.getRawValue(),
       };
-      this.store.dispatch(authActions.register({ request }));
+      this.store.dispatch(authActions.login({ request }));
     }
   }
 }
