@@ -55,11 +55,21 @@ export const loginEffect = createEffect(
             return authActions.loginSuccess({ response });
           }),
           tap(() => router.navigate(['/home'])),
-          catchError(() => {
+          catchError((response) => {
+            console.log(response);
+            if (response.status == 401) {
+              return of(
+                authActions.loginFailure({
+                  errors: {
+                    loginError: ['Email or password is incorrect'],
+                  },
+                })
+              );
+            }
             return of(
               authActions.loginFailure({
                 errors: {
-                  loginError: ['Email or password is incorrect'],
+                  loginError: ['Server error'],
                 },
               })
             );

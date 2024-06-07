@@ -1,0 +1,79 @@
+.trades-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 1600px; /* Increase max-width to ensure container is wider */
+    margin: 0 auto;
+  }
+  
+  .trades-list-card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .mat-table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .mat-elevation-z8 {
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .mat-header-cell, .mat-cell {
+    padding: 8px 16px;
+    text-align: left;
+    white-space: nowrap;
+    border-right: 1px solid rgba(0, 0, 0, 0.1); /* Add vertical lines */
+  }
+  
+  .mat-header-cell:last-child, .mat-cell:last-child {
+    border-right: none; /* Remove the border on the last cell */
+  }
+  
+  .mat-header-cell {
+    font-weight: bold;
+    background-color: #3f51b5; /* Change header background color */
+    color: white; /* Change header text color */
+  }
+  
+  .mat-row {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .mat-paginator {
+    margin-top: 20px;
+  }
+  
+
+  .mat-header-row-custom {
+    background-color: #3f51b5; /* Change header background color */
+    color: white; /* Change header text color */
+  }
+  
+  .mat-header-cell, .mat-cell {
+    padding: 8px 16px;
+    text-align: left;
+    white-space: nowrap;
+    border-right: 1px solid rgba(0, 0, 0, 0.1); /* Add vertical lines */
+  }
+  
+  .mat-header-cell:last-child, .mat-cell:last-child {
+    border-right: none; /* Remove the border on the last cell */
+  }
+  
+  .mat-header-cell {
+    font-weight: bold;
+  }
+  
+  .mat-row {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  
+
+  

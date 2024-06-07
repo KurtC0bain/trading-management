@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TM.Domain.Entities.AssetRate">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAggAICAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Entities\AssetRate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Domain.Entities.Factor">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAggAAEAAAAAAwAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Factor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Domain.Entities.FactorSetup">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABACAAAAAQAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Entities\FactorSetup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Domain.Entities.Pair">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Pair.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Domain.Entities.Setup">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAIAAAAAAwAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Setup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Domain.Entities.Trade">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgEAAKIACAgEgEAEAAAAAAgCEhAAAAEBAACAAAAgAAA=</HashCode>
+      <FileName>Entities\Trade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TM.Domain.Enums.DirectionType">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAACAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\Direction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TM.Domain.Enums.PositionType">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAACAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\Position.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TM.Domain.Enums.ResultType">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAhAAAAAAAAIAEAAAAAAAA=</HashCode>
+      <FileName>Enums\Result.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

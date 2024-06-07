@@ -3,7 +3,7 @@
     public enum DirectionType
     {
         Trend,
-        Countertrand,
+        Countertrend,
         Range
     }
 }

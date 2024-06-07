@@ -9,6 +9,8 @@ namespace TM.Application.Common.Helpers
         {
             trade.ID = isUpdate ? trade.ID : Guid.NewGuid().ToString();
             trade.Date = isUpdate ? trade.Date : DateTime.Now;
+            trade.ResultType = trade.ResultType is null ? ResultType.Pending : trade.ResultType;
+
             trade.Date = trade.Date is null ? DateTime.Now : trade.Date;
 
             trade.RiskRewardRatio = CalculationHelper.GetRiskRewardRatio(trade.PriceEntry, trade.PriceStop, trade.PriceTake);

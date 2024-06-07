@@ -8,6 +8,8 @@ import { authFeatureKey, authReducer } from './auth/store/reducers';
 import { provideHttpClient } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
 import * as authEffects from './auth/store/effects';
+import * as tradeEffects from './trades/store/effects';
+import { tradeFeatureKey, tradeReducer } from './trades/store/reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +18,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideStore(),
     provideState(authFeatureKey, authReducer),
+    provideState(tradeFeatureKey, tradeReducer),
     provideEffects(authEffects),
+    provideEffects(tradeEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

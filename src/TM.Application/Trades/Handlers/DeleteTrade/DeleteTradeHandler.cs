@@ -17,12 +17,13 @@ namespace TM.Application.Trades.Handlers
 
         public async Task<Result<InternalError, TradeResponse>> Handle(DeleteTradeCommand request, CancellationToken cancellationToken)
         {
+            var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
+
             var tradeToDelete = await _repository.FindByIdAsync(request.TradeId);
             if (tradeToDelete is null) 
                 return new NotFoundError(request.TradeId);
 
-            
-            var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
+
             if (tradeToDelete?.UserID != currentUser?.Id)
             {
                 return new Result<InternalError, TradeResponse>(new WrongUserError());

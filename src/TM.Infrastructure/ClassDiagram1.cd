@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TM.Infrastructure.DependencyInjection">
+    <Position X="10" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>DependencyInjection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Infrastructure.Binance.API.Services.AssetsService" BaseTypeListCollapsed="true">
+    <Position X="10" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Binance.API\Services\AssetsService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TM.Infrastructure.Persistance.Extensrions.ModelBuilderExtension">
+    <Position X="6" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistance\Extensrions\ModelBuilderExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Infrastructure.Persistance.Repositories.FactorsRepository">
+    <Position X="4.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAIgEAAAAAAAgAAAAAAAAAAIA=</HashCode>
+      <FileName>Persistance\Repositories\FactorsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Infrastructure.Persistance.Repositories.PairsRepository">
+    <Position X="6.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAIgEAAAAAAAgAAAAAAAAAAIA=</HashCode>
+      <FileName>Persistance\Repositories\PairsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Infrastructure.Persistance.Repositories.RepositoryBase&lt;TEntity&gt;">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAgAAAAAAAAAAIgEAAAAIAAgAAAAAAAAAAIA=</HashCode>
+      <FileName>Persistance\Repositories\RepositoryBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TM.Infrastructure.Persistance.Repositories.SetupsRepository">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAIgEAAAAAAAgAAAAAAAAAAIA=</HashCode>
+      <FileName>Persistance\Repositories\SetupsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Infrastructure.Persistance.Repositories.TradesRepository">
+    <Position X="11.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAIgEAAAAAAAgAAAAAAAAAAIA=</HashCode>
+      <FileName>Persistance\Repositories\TradesRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Infrastructure.Persistance.TradeManagementDbContext" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAIQAAAAAAAEAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistance\TradeManagementDbContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

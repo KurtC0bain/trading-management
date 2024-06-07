@@ -5,6 +5,7 @@
         Take,
         Stop,
         BreakEven,
-        EarlyExit
+        EarlyExit,
+        Pending
     }
 }
