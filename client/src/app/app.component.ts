@@ -42,6 +42,16 @@ export class AppComponent {
     private cookiesService: CookieService
   ) {}
 
+  ngOnInit(): void {
+    let cookie = this.cookiesService.get('.AspNetCore.Identity.Application');
+    let length = cookie.length > 0;
+    if (length) {
+      this.store.dispatch(authActions.checkAuthSuccess());
+    } else {
+      this.store.dispatch(authActions.checkAuthFailure());
+    }
+  }
+
   logout() {
     // Handle logout logic here, e.g., clear tokens, navigate to login page, etc.
     console.log('Logged out');

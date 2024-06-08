@@ -62,6 +62,14 @@ export const authFeature = createFeature({
       ...state,
       isSubmitting: false,
       validationErrors: action.errors,
+    })),
+    on(authActions.checkAuthSuccess, (state) => ({
+      ...state,
+      isAuthorized: true,
+    })),
+    on(authActions.checkAuthFailure, (state) => ({
+      ...state,
+      isAuthorized: false,
     }))
   ),
 });

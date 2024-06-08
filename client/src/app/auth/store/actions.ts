@@ -17,5 +17,9 @@ export const authActions = createActionGroup({
     Logout: emptyProps(),
     'Logout Success': emptyProps(),
     'Logout Failure': props<{ errors: RegisterErrorsInterface }>(),
+
+    CheckAuth: emptyProps(),
+    'CheckAuth Success': emptyProps(),
+    'CheckAuth Failure': emptyProps(),
   },
 });

@@ -20,7 +20,7 @@ export class ConfirmDeleteTradeComponent {
   ) {}
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   onYesClick(): void {

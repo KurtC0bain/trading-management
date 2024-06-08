@@ -12,7 +12,7 @@ import { ErrorResponse } from '../../shared/types/errorResponse.interface';
 export const getTradesEffect = createEffect(
   (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
     return actions$.pipe(
-      ofType(tradeActions.getAllTrades),
+      ofType(tradeActions.getAllTrades, tradeActions.deleteTradeSuccess),
       switchMap(() => {
         return tradeService.getAllTrades().pipe(
           map((response: Trade[]) => {
@@ -44,6 +44,29 @@ export const getTradeByIdEffect = createEffect(
           catchError((errorResponse: ErrorResponse) => {
             return of(
               tradeActions.getTradeByIdFailure({
+                errors: errorResponse,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const deleteTradeEffect = createEffect(
+  (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
+    return actions$.pipe(
+      ofType(tradeActions.deleteTrade),
+      switchMap(({ tradeId }) => {
+        return tradeService.deleteTrade(tradeId).pipe(
+          map((response: Trade) => {
+            return tradeActions.deleteTradeSuccess({ response });
+          }),
+          catchError((errorResponse: ErrorResponse) => {
+            return of(
+              tradeActions.deleteTradeFailure({
                 errors: errorResponse,
               })
             );

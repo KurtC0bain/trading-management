@@ -44,4 +44,21 @@ export class TradeService {
     const tradeUrl = environment.apiUrl + `/trades/${tradeId}`;
     return this.http.get<Trade>(tradeUrl, httpOptions);
   }
+
+  deleteTrade(tradeId: string): Observable<Trade> {
+    // if (this.cookieService.get('.AspNetCore.Identity.Application') == null)
+    //   return false;
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer ' +
+          this.cookieService.get('.AspNetCore.Identity.Application'),
+      }),
+    };
+
+    const tradeUrl = environment.apiUrl + `/trades/${tradeId}`;
+    return this.http.delete<Trade>(tradeUrl, httpOptions);
+  }
 }

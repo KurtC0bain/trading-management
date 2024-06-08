@@ -45,6 +45,23 @@ export const tradeFeature = createFeature({
       ...state,
       isSubmitting: false,
       errors: action.errors,
+    })),
+
+    on(tradeActions.deleteTrade, (state) => ({
+      ...state,
+      isLoading: false,
+      errors: null,
+    })),
+    on(tradeActions.deleteTradeSuccess, (state, action) => ({
+      ...state,
+      isLoading: false,
+      errors: null,
+      trade: action.response,
+    })),
+    on(tradeActions.deleteTradeFailure, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      errors: action.errors,
     }))
   ),
 });

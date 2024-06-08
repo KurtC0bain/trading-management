@@ -2,10 +2,11 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../services/auth.service';
 import { authActions } from './actions';
-import { switchMap, map, catchError, of, tap } from 'rxjs';
+import { switchMap, map, catchError, of, tap, mergeMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PersistanceService } from '../../shared/services/persistance.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 export const registerEffect = createEffect(
   (
@@ -119,6 +120,21 @@ export const redirectAfterRegisterEffect = createEffect(
       ofType(authActions.registerSuccess),
       tap(() => {
         router.navigateByUrl('/home');
+      })
+    );
+  },
+  { functional: true, dispatch: false }
+);
+
+export const checkAuthEffect = createEffect(
+  (actions$ = inject(Actions), cookieService = inject(CookieService)) => {
+    return actions$.pipe(
+      ofType(authActions.checkAuth),
+      map(() => {
+        // let cookie = cookieService.get('.AspNetCore.Identity.Application');
+        // let length = cookie.length < 0;
+        // debugger;
+        return authActions.checkAuthSuccess();
       })
     );
   },
