@@ -1,0 +1,85 @@
+<h1 mat-dialog-title>Edit Trade</h1>
+<div mat-dialog-content>
+  <form [formGroup]="tradeForm">
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Setup</mat-label>
+      <input matInput formControlName="setupId" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Pair</mat-label>
+      <input matInput formControlName="pairId" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Date</mat-label>
+      <input matInput formControlName="date" [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Initial Deposit</mat-label>
+      <input matInput formControlName="initialDeposit" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Risk Amount</mat-label>
+      <input matInput formControlName="riskAmount" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Price Entry</mat-label>
+      <input matInput formControlName="priceEntry" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Price Stop</mat-label>
+      <input matInput formControlName="priceStop" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Price Take</mat-label>
+      <input matInput formControlName="priceTake" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Profit</mat-label>
+      <input matInput formControlName="profit" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Deposit Risk</mat-label>
+      <input matInput formControlName="depositRisk" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Risk Reward Ratio</mat-label>
+      <input matInput formControlName="riskRewardRatio" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Position Type</mat-label>
+      <mat-select formControlName="positionType">
+        <mat-option value="Long">Long</mat-option>
+        <mat-option value="Short">Short</mat-option>
+        <mat-option value="Market">Market</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Direction Type</mat-label>
+      <mat-select formControlName="directionType">
+        <mat-option value="Trend">Trend</mat-option>
+        <mat-option value="Countertrend">Countertrend</mat-option>
+        <mat-option value="Range">Range</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Result Type</mat-label>
+      <mat-select formControlName="resultType">
+        <mat-option value="Take">Take</mat-option>
+        <mat-option value="Stop">Stop</mat-option>
+        <mat-option value="EarlyExit">Early Exit</mat-option>
+        <mat-option value="BreakEven">Break Even</mat-option>
+        <mat-option value="Pending">Pending</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Rating</mat-label>
+      <input matInput formControlName="rating" />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button color="primary" (click)="onSaveClick()">Save</button>
+</div>

@@ -12,5 +12,9 @@ export const tradeActions = createActionGroup({
     GetTradeById: props<{ tradeId: string }>(),
     'GetTradeById Success': props<{ response: Trade }>(),
     'GetTradeById Failure': props<{ errors: ErrorResponse }>(),
+
+    DeleteTrade: props<{ tradeId: string }>(),
+    'DeleteTrade Success': props<{ response: Trade }>(),
+    'DeleteTrade Failure': props<{ errors: ErrorResponse }>(),
   },
 });

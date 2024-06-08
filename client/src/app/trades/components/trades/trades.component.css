@@ -70,10 +70,28 @@
     font-weight: bold;
   }
   
+  .mat-header-cell.mat-column-date, .mat-cell.mat-column-date {
+    width: 200px; /* Make Date column wider */
+  }
+  
+  .mat-header-cell.mat-column-depositRisk, 
+  .mat-cell.mat-column-depositRisk,
+  .mat-header-cell.mat-column-resultType, 
+  .mat-cell.mat-column-resultType,
+  .mat-header-cell.mat-column-positionType, 
+  .mat-cell.mat-column-positionType {
+    width: 100px; /* Make Deposit Risk, Result Type, and Position Type columns tighter */
+  }
+  
   .mat-row {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
   
+  .actions-cell {
+    display: flex;
+    align-items: center;
+  }
+    
   
 
   

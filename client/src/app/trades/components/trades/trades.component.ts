@@ -10,17 +10,24 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Observable, combineLatest } from 'rxjs';
-import { DirectionType, ResultType, Trade } from '../types/trade.interface';
+import { DirectionType, ResultType, Trade } from '../../types/trade.interface';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectErrors, selectIsLoading, selectTrades } from '../store/reducers';
+import {
+  selectErrors,
+  selectIsLoading,
+  selectTrades,
+} from '../../store/reducers';
 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { tradeActions } from '../store/actions';
+import { tradeActions } from '../../store/actions';
+import { EditTradeComponent } from '../edit-trade/edit-trade.component';
+import { ConfirmDeleteTradeComponent } from '../confirm-delete-trade/confirm-delete-trade.component';
 
 @Component({
   selector: 'tm-trades',
@@ -41,6 +48,7 @@ import { tradeActions } from '../store/actions';
     ReactiveFormsModule,
     MatSortModule,
     MatIconModule,
+    MatDialogModule,
   ],
   styleUrl: './trades.component.css',
 })
@@ -68,6 +76,7 @@ export class TradesComponent {
     'directionType',
     'resultType',
     'rating',
+    'actions',
   ];
   dataSource = new MatTableDataSource<Trade>();
 
@@ -76,7 +85,11 @@ export class TradesComponent {
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private store: Store, private fb: FormBuilder) {}
+  constructor(
+    private store: Store,
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(tradeActions.getAllTrades());
@@ -121,5 +134,24 @@ export class TradesComponent {
       default:
         return '';
     }
+  }
+
+  openEditDialog(trade: Trade): void {
+    this.dialog.open(EditTradeComponent, {
+      width: '600px',
+      data: trade,
+    });
+  }
+
+  openDeleteDialog(trade: Trade): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteTradeComponent, {
+      width: '300px',
+      data: { id: trade.id },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.store.dispatch(tradeActions.deleteTrade({ tradeId: trade.id }));
+      }
+    });
   }
 }

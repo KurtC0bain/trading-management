@@ -1,4 +1,8 @@
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  isDevMode,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -10,6 +14,7 @@ import { provideEffects } from '@ngrx/effects';
 import * as authEffects from './auth/store/effects';
 import * as tradeEffects from './trades/store/effects';
 import { tradeFeatureKey, tradeReducer } from './trades/store/reducers';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideAnimationsAsync(),
     provideStore(),
+    importProvidersFrom(MatNativeDateModule),
     provideState(authFeatureKey, authReducer),
     provideState(tradeFeatureKey, tradeReducer),
     provideEffects(authEffects),
