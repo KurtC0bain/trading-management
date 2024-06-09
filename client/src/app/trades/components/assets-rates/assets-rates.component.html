@@ -1,0 +1,20 @@
+<div *ngIf="loading" class="loader-container">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div class="assets-rates-container" *ngIf="!loading">
+  <mat-card *ngFor="let assetRate of assetRates" class="asset-rate-card">
+    <mat-card-header>
+      <mat-card-title>{{ assetRate.assetName }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Last Price: {{ assetRate.lastPrice | number : "1.2-2" }}</p>
+      <p>High Price: {{ assetRate.highPrice | number : "1.2-2" }}</p>
+      <p>Low Price: {{ assetRate.lowPrice | number : "1.2-2" }}</p>
+      <p>Volume: {{ assetRate.volume | number : "1.2-2" }}</p>
+      <p>
+        Weighted Avg Price:
+        {{ assetRate.weightedAveragePrice | number : "1.2-2" }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

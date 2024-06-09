@@ -3,7 +3,7 @@ import { AppComponent } from './app.component';
 
 export const appRoutes: Route[] = [
   {
-    path: 'home',
+    path: '',
     loadChildren: () => import('./home/home.routes').then((m) => m.homeRoutes),
   },
   {

@@ -8,6 +8,7 @@ import { TradeService } from '../services/trades.service';
 import { tradeActions } from './actions';
 import { Trade } from '../types/trade.interface';
 import { ErrorResponse } from '../../shared/types/errorResponse.interface';
+import { AssetRateResponse } from '../types/asset-rate.interface';
 
 export const getTradesEffect = createEffect(
   (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
@@ -67,6 +68,29 @@ export const deleteTradeEffect = createEffect(
           catchError((errorResponse: ErrorResponse) => {
             return of(
               tradeActions.deleteTradeFailure({
+                errors: errorResponse,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const getAssetsRatesEffect = createEffect(
+  (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
+    return actions$.pipe(
+      ofType(tradeActions.getAssetsRates),
+      switchMap(({ tickerNames }) => {
+        return tradeService.getAssetsRates(tickerNames).pipe(
+          map((response: AssetRateResponse[]) => {
+            return tradeActions.getAssetsRatesSuccess({ response });
+          }),
+          catchError((errorResponse: ErrorResponse) => {
+            return of(
+              tradeActions.getAssetsRatesFailure({
                 errors: errorResponse,
               })
             );

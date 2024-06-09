@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { Trade } from '../types/trade.interface';
 import { environment } from '../../../environments/environment';
+import { AssetRateResponse } from '../types/asset-rate.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,6 @@ export class TradeService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   getAllTrades(): Observable<Trade[]> {
-    // if (this.cookieService.get('.AspNetCore.Identity.Application') == null)
-    //   return false;
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -29,9 +27,6 @@ export class TradeService {
   }
 
   getTradeById(tradeId: string): Observable<Trade> {
-    // if (this.cookieService.get('.AspNetCore.Identity.Application') == null)
-    //   return false;
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -46,9 +41,6 @@ export class TradeService {
   }
 
   deleteTrade(tradeId: string): Observable<Trade> {
-    // if (this.cookieService.get('.AspNetCore.Identity.Application') == null)
-    //   return false;
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -60,5 +52,23 @@ export class TradeService {
 
     const tradeUrl = environment.apiUrl + `/trades/${tradeId}`;
     return this.http.delete<Trade>(tradeUrl, httpOptions);
+  }
+
+  getAssetsRates(tickerNames: string[]): Observable<AssetRateResponse[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer ' +
+          this.cookieService.get('.AspNetCore.Identity.Application'),
+      }),
+    };
+
+    const assetsRatesUrl = environment.apiUrl + '/rate/';
+    return this.http.post<AssetRateResponse[]>(
+      assetsRatesUrl,
+      { TickerNames: tickerNames },
+      httpOptions
+    );
   }
 }

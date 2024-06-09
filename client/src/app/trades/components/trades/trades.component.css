@@ -4,7 +4,7 @@
     align-items: center;
     padding: 20px;
     width: 100%;
-    max-width: 1600px; /* Increase max-width to ensure container is wider */
+    max-width: 1700px; /* Increase max-width to ensure container is wider */
     margin: 0 auto;
   }
   
@@ -71,7 +71,7 @@
   }
   
   .mat-header-cell.mat-column-date, .mat-cell.mat-column-date {
-    width: 200px; /* Make Date column wider */
+    width: 400px; /* Make Date column wider */
   }
   
   .mat-header-cell.mat-column-depositRisk, 

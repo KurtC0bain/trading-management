@@ -7,20 +7,25 @@ using TM.Application.Error.Models;
 
 namespace TM.Application.Assets.Handlers
 {
-    public class GetAssetRateHandler(IAssetsService assetsService, IMapper mapper) : IRequestHandler<GetAssetRateQuery, Result<InternalError, AssetRateResponse>>
+    public class GetAssetRateHandler(IAssetsService assetsService, IMapper mapper) : IRequestHandler<GetAssetRateQuery, Result<InternalError, List<AssetRateResponse>>>
     {
         private readonly IAssetsService _assetsService = assetsService;
         private readonly IMapper _mapper = mapper;
 
-        public async Task<Result<InternalError, AssetRateResponse>> Handle(GetAssetRateQuery request, CancellationToken cancellationToken)
+        public async Task<Result<InternalError, List<AssetRateResponse>>> Handle(GetAssetRateQuery request, CancellationToken cancellationToken)
         {
-            var assetInfo = await _assetsService.GetAssetRateAsync(request.TickerName);
-            if (assetInfo == null)
-                return new NotFoundError(request.TickerName);
-            if (!assetInfo.IsSuccess)
-                return new Result<InternalError, AssetRateResponse>(assetInfo?.Error);
+            List<AssetRateResponse> response = new List<AssetRateResponse>();
 
-            return _mapper.Map<AssetRateResponse>(assetInfo.Value);
+            foreach (var tickerName in request.AssetsRatesRequest.TickerNames)
+            {
+                var assetInfo = await _assetsService.GetAssetRateAsync(tickerName);
+                if (assetInfo == null)
+                    return new NotFoundError(tickerName);
+                if (!assetInfo.IsSuccess)
+                    return new Result<InternalError, List<AssetRateResponse>>(assetInfo?.Error);
+                response.Add(_mapper.Map<AssetRateResponse>(assetInfo.Value));
+            }
+            return response;
         }
     }
 

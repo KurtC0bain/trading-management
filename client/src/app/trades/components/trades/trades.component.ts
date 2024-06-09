@@ -17,6 +17,7 @@ import { DirectionType, ResultType, Trade } from '../../types/trade.interface';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import {
+  selectAssets,
   selectErrors,
   selectIsLoading,
   selectTrades,
@@ -29,12 +30,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { tradeActions } from '../../store/actions';
 import { EditTradeComponent } from '../edit-trade/edit-trade.component';
 import { ConfirmDeleteTradeComponent } from '../confirm-delete-trade/confirm-delete-trade.component';
+import { AssetsRatesComponent } from '../assets-rates/assets-rates.component';
+import { AssetRateResponse } from '../../types/asset-rate.interface';
 
 @Component({
   selector: 'tm-trades',
   templateUrl: './trades.component.html',
   standalone: true,
   imports: [
+    AssetsRatesComponent,
     CommonModule,
     RouterLink,
     MatCardModule,
@@ -55,12 +59,16 @@ import { ConfirmDeleteTradeComponent } from '../confirm-delete-trade/confirm-del
   styleUrl: './trades.component.css',
 })
 export class TradesComponent {
-  trades$!: Observable<Trade[] | null>;
+  pairs = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ARBUSDT'];
 
-  data$ = combineLatest({
-    isLoading: this.store.select(selectIsLoading),
-    errors: this.store.select(selectErrors),
-  });
+  trades$!: Observable<Trade[] | null>;
+  isLoading$!: Observable<boolean>;
+  assetRates$!: Observable<AssetRateResponse[] | null>;
+
+  // data$ = combineLatest({
+  //   isLoading: this.store.select(selectIsLoading),
+  //   errors: this.store.select(selectErrors),
+  // });
 
   displayedColumns: string[] = [
     'setup',
@@ -94,8 +102,16 @@ export class TradesComponent {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading$ = this.store.select(selectIsLoading);
+
     this.store.dispatch(tradeActions.getAllTrades());
+    this.store.dispatch(
+      tradeActions.getAssetsRates({ tickerNames: this.pairs })
+    );
+
     this.trades$ = this.store.select(selectTrades);
+    this.assetRates$ = this.store.select(selectAssets);
+
     this.trades$.subscribe((trades) => {
       if (trades) {
         this.dataSource.data = trades;
@@ -110,7 +126,6 @@ export class TradesComponent {
 
   getResultTypeChipStyle(resultType: ResultType) {
     const backgroundColor = this.getResultTypeColor(resultType);
-    debugger;
     const color = resultType === ResultType.Pending ? 'black' : 'white';
     return {
       backgroundColor,
@@ -174,5 +189,11 @@ export class TradesComponent {
         this.store.dispatch(tradeActions.deleteTrade({ tradeId: trade.id }));
       }
     });
+  }
+
+  refreshAssetRates(): void {
+    this.store.dispatch(
+      tradeActions.getAssetsRates({ tickerNames: this.pairs })
+    );
   }
 }

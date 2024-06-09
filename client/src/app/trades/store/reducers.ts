@@ -7,6 +7,7 @@ const initialState: TradesStateInterface = {
   errors: null,
   trades: null,
   trade: null,
+  assets: null,
 };
 
 export const tradeFeature = createFeature({
@@ -26,13 +27,13 @@ export const tradeFeature = createFeature({
     })),
     on(tradeActions.getAllTradesFailure, (state, action) => ({
       ...state,
-      isSubmitting: false,
+      isLoading: false,
       errors: action.errors,
     })),
 
     on(tradeActions.getTradeById, (state) => ({
       ...state,
-      isLoading: false,
+      isLoading: true,
       errors: null,
     })),
     on(tradeActions.getTradeByIdSuccess, (state, action) => ({
@@ -43,13 +44,13 @@ export const tradeFeature = createFeature({
     })),
     on(tradeActions.getTradeByIdFailure, (state, action) => ({
       ...state,
-      isSubmitting: false,
+      isLoading: false,
       errors: action.errors,
     })),
 
     on(tradeActions.deleteTrade, (state) => ({
       ...state,
-      isLoading: false,
+      isLoading: true,
       errors: null,
     })),
     on(tradeActions.deleteTradeSuccess, (state, action) => ({
@@ -60,7 +61,24 @@ export const tradeFeature = createFeature({
     })),
     on(tradeActions.deleteTradeFailure, (state, action) => ({
       ...state,
-      isSubmitting: false,
+      isLoading: false,
+      errors: action.errors,
+    })),
+
+    on(tradeActions.getAssetsRates, (state) => ({
+      ...state,
+      isLoading: true,
+      errors: null,
+    })),
+    on(tradeActions.getAssetsRatesSuccess, (state, action) => ({
+      ...state,
+      isLoading: false,
+      errors: null,
+      assets: action.response,
+    })),
+    on(tradeActions.getAssetsRatesFailure, (state, action) => ({
+      ...state,
+      isLoading: false,
       errors: action.errors,
     }))
   ),
@@ -73,4 +91,5 @@ export const {
   selectIsLoading,
   selectErrors,
   selectTrade,
+  selectAssets,
 } = tradeFeature;

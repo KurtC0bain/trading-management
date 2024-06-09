@@ -4,8 +4,8 @@ using TM.Application.Error.Models;
 
 namespace TM.Application.Assets.Queries
 {
-    public class GetAssetRateQuery(string tickerName) : IRequest<Result<InternalError, AssetRateResponse>>
+    public class GetAssetRateQuery(AssetsRatesRequest request) : IRequest<Result<InternalError, List<AssetRateResponse>>>
     {
-        public string TickerName { get; } = tickerName;
+        public AssetsRatesRequest AssetsRatesRequest { get; } = request;
     }
 }

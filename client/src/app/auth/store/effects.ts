@@ -55,7 +55,7 @@ export const loginEffect = createEffect(
             persistanceService.set('refresh_token', response.refreshToken);
             return authActions.loginSuccess({ response });
           }),
-          tap(() => router.navigate(['/home'])),
+          tap(() => router.navigate([''])),
           catchError((response) => {
             console.log(response);
             if (response.status == 401) {
@@ -119,7 +119,7 @@ export const redirectAfterRegisterEffect = createEffect(
     return actions$.pipe(
       ofType(authActions.registerSuccess),
       tap(() => {
-        router.navigateByUrl('/home');
+        router.navigateByUrl('/login');
       })
     );
   },

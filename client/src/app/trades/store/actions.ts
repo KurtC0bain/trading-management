@@ -1,6 +1,7 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Trade } from '../types/trade.interface';
 import { ErrorResponse } from '../../shared/types/errorResponse.interface';
+import { AssetRateResponse } from '../types/asset-rate.interface';
 
 export const tradeActions = createActionGroup({
   source: 'trades',
@@ -16,5 +17,9 @@ export const tradeActions = createActionGroup({
     DeleteTrade: props<{ tradeId: string }>(),
     'DeleteTrade Success': props<{ response: Trade }>(),
     'DeleteTrade Failure': props<{ errors: ErrorResponse }>(),
+
+    GetAssetsRates: props<{ tickerNames: string[] }>(),
+    'GetAssetsRates Success': props<{ response: AssetRateResponse[] }>(),
+    'GetAssetsRates Failure': props<{ errors: ErrorResponse }>(),
   },
 });

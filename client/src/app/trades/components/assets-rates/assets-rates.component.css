@@ -1,0 +1,32 @@
+.assets-rates-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust as needed */
+  }
+  
+  .assets-rates-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .asset-rate-card {
+    flex: 1;
+    min-width: 180px; /* Ensure each card has a minimum width */
+    border: 1px solid #e0e0e0; /* Light grey border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+    border-radius: 8px; /* Rounded corners */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .asset-rate-card:hover {
+    transform: translateY(-4px); /* Slight lift effect on hover */
+  }
+  
