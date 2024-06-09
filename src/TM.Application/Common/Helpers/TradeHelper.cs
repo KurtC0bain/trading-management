@@ -16,13 +16,17 @@ namespace TM.Application.Common.Helpers
             trade.RiskRewardRatio = CalculationHelper.GetRiskRewardRatio(trade.PriceEntry, trade.PriceStop, trade.PriceTake);
             trade.RiskAmount = CalculationHelper.GetRiskAmount(trade.InitialDeposit, trade.DepositRisk);
 
-            if (trade.ResultType is null || trade.ResultType == ResultType.Take)
+            if (trade.ResultType == ResultType.Pending || trade.ResultType == ResultType.Take)
             {
                 trade.Profit = CalculationHelper.GetProfit(trade.PriceEntry, trade.PriceStop, trade.PriceTake, trade.DepositRisk, trade.InitialDeposit, trade.PositionType);
             }
             else if (trade.ResultType == ResultType.Stop)
             {
                 trade.Profit = -trade.RiskAmount;
+            }
+            else if(trade.ResultType == ResultType.BreakEven)
+            {
+                trade.Profit = 0;
             }
         }
     }

@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
 import { Observable, combineLatest } from 'rxjs';
 import { DirectionType, ResultType, Trade } from '../../types/trade.interface';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -49,6 +50,7 @@ import { ConfirmDeleteTradeComponent } from '../confirm-delete-trade/confirm-del
     MatSortModule,
     MatIconModule,
     MatDialogModule,
+    MatChipsModule,
   ],
   styleUrl: './trades.component.css',
 })
@@ -104,6 +106,25 @@ export class TradesComponent {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  getResultTypeChipStyle(resultType: ResultType) {
+    const backgroundColor = this.getResultTypeColor(resultType);
+    debugger;
+    const color = resultType === ResultType.Pending ? 'black' : 'white';
+    return {
+      backgroundColor,
+      color,
+    };
+  }
+
+  getProfitChipStyle(profit: number) {
+    const backgroundColor = profit >= 0 ? 'green' : 'red';
+    const textColor = 'white';
+    return {
+      backgroundColor,
+      textColor,
+    };
   }
 
   getResultTypeColor(resultType: ResultType): string {

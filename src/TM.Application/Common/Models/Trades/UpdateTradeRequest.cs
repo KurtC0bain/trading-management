@@ -4,6 +4,7 @@
     {
         public string? ID { get; set; }
         public string? ResultType { get; set; }
+        public double? Profit { get; set; }
 
     }
 }
