@@ -5,7 +5,7 @@
         <mat-card-title>Assets Rates</mat-card-title>
         <button
           mat-icon-button
-          [disabled]="isLoading$ | async"
+          [disabled]="isAssetsLoading$ | async"
           (click)="refreshAssetRates()"
         >
           <mat-icon>refresh</mat-icon>
@@ -15,7 +15,7 @@
     <mat-card-content>
       <tm-assets-rates
         [assetRates]="assetRates$ | async"
-        [loading]="isLoading$ | async"
+        [loading]="isAssetsLoading$ | async"
       >
       </tm-assets-rates>
     </mat-card-content>

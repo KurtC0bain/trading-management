@@ -7,5 +7,6 @@ export interface TradesStateInterface {
   assets: AssetRateResponse[] | null;
   trade: Trade | null;
   isLoading: boolean;
+  isAssetsLoading: boolean;
   errors: ErrorResponse | null;
 }

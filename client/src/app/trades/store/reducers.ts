@@ -4,6 +4,7 @@ import { tradeActions } from './actions';
 
 const initialState: TradesStateInterface = {
   isLoading: false,
+  isAssetsLoading: false,
   errors: null,
   trades: null,
   trade: null,
@@ -17,7 +18,7 @@ export const tradeFeature = createFeature({
     on(tradeActions.getAllTrades, (state) => ({
       ...state,
       isLoading: true,
-      validationErrors: null,
+      errors: null,
     })),
     on(tradeActions.getAllTradesSuccess, (state, action) => ({
       ...state,
@@ -67,18 +68,18 @@ export const tradeFeature = createFeature({
 
     on(tradeActions.getAssetsRates, (state) => ({
       ...state,
-      isLoading: true,
+      isAssetsLoading: true,
       errors: null,
     })),
     on(tradeActions.getAssetsRatesSuccess, (state, action) => ({
       ...state,
-      isLoading: false,
+      isAssetsLoading: false,
       errors: null,
       assets: action.response,
     })),
     on(tradeActions.getAssetsRatesFailure, (state, action) => ({
       ...state,
-      isLoading: false,
+      isAssetsLoading: false,
       errors: action.errors,
     }))
   ),
@@ -92,4 +93,5 @@ export const {
   selectErrors,
   selectTrade,
   selectAssets,
+  selectIsAssetsLoading,
 } = tradeFeature;

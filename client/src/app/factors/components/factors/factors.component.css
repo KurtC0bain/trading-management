@@ -1,0 +1,89 @@
+.factors-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    width: 100%;
+  }
+  
+  .factors-main-card {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .factors-main-card mat-card-header {
+    background-color: transparent;
+    color: black; /* Title color */
+    text-align: left; /* Align title to the left */
+    margin-bottom: 30px; /* Added margin to create distance between title and button */
+  }
+  
+  .create-button {
+    margin-bottom: 16px;
+  }
+  
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
+  
+  .factors-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    width: 100%;
+  }
+  
+  .factor-card {
+    width: 100%; /* Adjust to fit the grid */
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    background-color: #fff;
+    position: relative;
+  }
+  
+  .factor-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .factor-card mat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1976d2; /* Matching header color */
+    color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .factor-card mat-card-content {
+    padding: 16px;
+  }
+  
+  .factor-card .actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px; /* Closer positioning of the icons */
+  }
+  
+  .factor-card .actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .factor-card .actions button:hover {
+    color: #ff4081;
+  }
+  
+  .factor-card-title {
+    margin: 0;
+  }
+  

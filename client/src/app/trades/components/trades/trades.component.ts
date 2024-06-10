@@ -19,6 +19,7 @@ import { Store } from '@ngrx/store';
 import {
   selectAssets,
   selectErrors,
+  selectIsAssetsLoading,
   selectIsLoading,
   selectTrades,
 } from '../../store/reducers';
@@ -63,6 +64,7 @@ export class TradesComponent {
 
   trades$!: Observable<Trade[] | null>;
   isLoading$!: Observable<boolean>;
+  isAssetsLoading$!: Observable<boolean>;
   assetRates$!: Observable<AssetRateResponse[] | null>;
 
   // data$ = combineLatest({
@@ -103,6 +105,7 @@ export class TradesComponent {
 
   ngOnInit(): void {
     this.isLoading$ = this.store.select(selectIsLoading);
+    this.isAssetsLoading$ = this.store.select(selectIsAssetsLoading);
 
     this.store.dispatch(tradeActions.getAllTrades());
     this.store.dispatch(

@@ -26,6 +26,11 @@ export const appRoutes: Route[] = [
       import('./setups/setups.routes').then((m) => m.setupsRoutes),
   },
   {
+    path: 'factors',
+    loadChildren: () =>
+      import('./factors/factors.routes').then((m) => m.factorsRoutes),
+  },
+  {
     path: 'analysis',
     loadChildren: () =>
       import('./analysis/analysis.routes').then((m) => m.analysisRoutes),

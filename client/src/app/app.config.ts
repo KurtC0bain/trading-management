@@ -13,8 +13,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
 import * as authEffects from './auth/store/effects';
 import * as tradeEffects from './trades/store/effects';
+import * as factorEffects from './factors/store/effects';
 import { tradeFeatureKey, tradeReducer } from './trades/store/reducers';
 import { MatNativeDateModule } from '@angular/material/core';
+import { factorFeatureKey, factorReducer } from './factors/store/reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,8 +27,10 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(MatNativeDateModule),
     provideState(authFeatureKey, authReducer),
     provideState(tradeFeatureKey, tradeReducer),
+    provideState(factorFeatureKey, factorReducer),
     provideEffects(authEffects),
     provideEffects(tradeEffects),
+    provideEffects(factorEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
