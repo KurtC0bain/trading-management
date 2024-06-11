@@ -66,6 +66,40 @@ export const tradeFeature = createFeature({
       errors: action.errors,
     })),
 
+    on(tradeActions.createTrade, (state) => ({
+      ...state,
+      isLoading: true,
+      errors: null,
+    })),
+    on(tradeActions.createTradeSuccess, (state, action) => ({
+      ...state,
+      isLoading: false,
+      errors: null,
+      trade: action.response,
+    })),
+    on(tradeActions.createTradeFailure, (state, action) => ({
+      ...state,
+      isLoading: false,
+      errors: action.errors,
+    })),
+
+    on(tradeActions.updateTrade, (state) => ({
+      ...state,
+      isLoading: true,
+      errors: null,
+    })),
+    on(tradeActions.updateTradeSuccess, (state, action) => ({
+      ...state,
+      isLoading: false,
+      errors: null,
+      trade: action.response,
+    })),
+    on(tradeActions.updateTradeFailure, (state, action) => ({
+      ...state,
+      isLoading: false,
+      errors: action.errors,
+    })),
+
     on(tradeActions.getAssetsRates, (state) => ({
       ...state,
       isAssetsLoading: true,

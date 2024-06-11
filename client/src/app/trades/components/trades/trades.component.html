@@ -1,5 +1,5 @@
 <div class="trades-container">
-  <mat-card class="trades-list-card">
+  <mat-card class="assets-rates-card">
     <mat-card-header>
       <div class="assets-rates-header">
         <mat-card-title>Assets Rates</mat-card-title>
@@ -21,10 +21,22 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card class="trades-list-card">
-    <mat-card-header>
-      <mat-card-title>Trade History</mat-card-title>
+  <mat-card class="trades-header-card">
+    <mat-card-header class="header-content">
+      <mat-card-title class="header-title">Trade History</mat-card-title>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onAdd()"
+        class="create-button"
+      >
+        <mat-icon>add</mat-icon>
+        Create Trade
+      </button>
     </mat-card-header>
+  </mat-card>
+
+  <mat-card class="trades-list-card">
     <mat-card-content>
       <div class="mat-table-container">
         <table
@@ -128,9 +140,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Profit</th>
             <td mat-cell *matCellDef="let trade">
               <mat-chip-listbox>
-                <mat-chip-option
-                  [ngStyle]="getResultTypeChipStyle(trade.resultType)"
-                >
+                <mat-chip-option [ngStyle]="getProfitChipStyle(trade.profit)">
                   {{ trade.profit }}
                 </mat-chip-option>
               </mat-chip-listbox>
@@ -172,12 +182,13 @@
                 <mat-chip-option
                   [ngStyle]="getResultTypeChipStyle(trade.resultType)"
                 >
-                  {{ trade.resultType }}
+                  {{ trade.resultType || "Pending" }}
                 </mat-chip-option>
               </mat-chip-listbox>
             </td>
           </ng-container>
 
+          <!-- Actions Column -->
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let trade">

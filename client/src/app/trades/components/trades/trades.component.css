@@ -1,105 +1,97 @@
 .trades-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    width: 100%;
-    max-width: 1700px; /* Increase max-width to ensure container is wider */
-    margin: 0 auto;
-  }
-  
-  .trades-list-card {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .mat-table-container {
-    width: 100%;
-    overflow-x: auto;
-  }
-  
-  .mat-elevation-z8 {
-    border-radius: 8px;
-    overflow: hidden;
-    width: 100%;
-  }
-  
-  .mat-header-cell, .mat-cell {
-    padding: 8px 16px;
-    text-align: left;
-    white-space: nowrap;
-    border-right: 1px solid rgba(0, 0, 0, 0.1); /* Add vertical lines */
-  }
-  
-  .mat-header-cell:last-child, .mat-cell:last-child {
-    border-right: none; /* Remove the border on the last cell */
-  }
-  
-  .mat-header-cell {
-    font-weight: bold;
-    background-color: #3f51b5; /* Change header background color */
-    color: white; /* Change header text color */
-  }
-  
-  .mat-row {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .mat-paginator {
-    margin-top: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
 
-  .mat-header-row-custom {
-    background-color: #3f51b5; /* Change header background color */
-    color: white; /* Change header text color */
-  }
-  
-  .mat-header-cell, .mat-cell {
-    padding: 8px 16px;
-    text-align: left;
-    white-space: nowrap;
-    border-right: 1px solid rgba(0, 0, 0, 0.1); /* Add vertical lines */
-  }
-  
-  .mat-header-cell:last-child, .mat-cell:last-child {
-    border-right: none; /* Remove the border on the last cell */
-  }
-  
-  .mat-header-cell {
-    font-weight: bold;
-  }
-  
-  .mat-header-cell.mat-column-date, .mat-cell.mat-column-date {
-    width: 400px; /* Make Date column wider */
-  }
-  
-  .mat-header-cell.mat-column-depositRisk, 
-  .mat-cell.mat-column-depositRisk,
-  .mat-header-cell.mat-column-resultType, 
-  .mat-cell.mat-column-resultType,
-  .mat-header-cell.mat-column-positionType, 
-  .mat-cell.mat-column-positionType {
-    width: 100px; /* Make Deposit Risk, Result Type, and Position Type columns tighter */
-  }
-  
-  .mat-row {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .actions-cell {
-    display: flex;
-    align-items: center;
-  }
-  
-  .mat-chip-option {
-    border-radius: 16px;
-    color: white;
-    font-weight: bold;
-    padding: 0 12px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-    
+.assets-rates-card,
+.trades-list-card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #f0f4f8, #d9e4f5);
+}
+
+.trades-header-card {
+  background: linear-gradient(135deg, #7e57c2, #9575cd);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.create-button {
+  background-color: #9575cd;
+  color: white;
+}
+
+.mat-table-container {
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-radius: 10px;
+  background: white;
+}
+
+.mat-header-row-custom {
+  background: linear-gradient(135deg, #7e57c2, #9575cd);
+  color: white;
+}
+
+.mat-column-date {
+  width: 150px;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.mat-chip-option {
+  border-radius: 15px;
+  padding: 0 10px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.mat-chip-listbox {
+  display: flex;
+  justify-content: center;
+}
+
+.mat-paginator {
+  margin-top: 20px;
+}
+
+.mat-row {
+  height: 60px;
+}
+
+.mat-cell,
+.mat-header-cell {
+  padding: 0 16px;
+  text-align: center;
+}
+
+.mat-icon {
+  color: white;
+}

@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Trade } from '../types/trade.interface';
 import { environment } from '../../../environments/environment';
 import { AssetRateResponse } from '../types/asset-rate.interface';
+import { CreateTradeRequest } from '../types/create-trade.interface';
+import { UpdateTradeRequest } from '../types/update-trade.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +54,33 @@ export class TradeService {
 
     const tradeUrl = environment.apiUrl + `/trades/${tradeId}`;
     return this.http.delete<Trade>(tradeUrl, httpOptions);
+  }
+
+  createTrade(trade: CreateTradeRequest): Observable<Trade> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer ' +
+          this.cookieService.get('.AspNetCore.Identity.Application'),
+      }),
+    };
+
+    const tradeUrl = environment.apiUrl + `/trades`;
+    return this.http.post<Trade>(tradeUrl, trade, httpOptions);
+  }
+
+  updateTrade(trade: UpdateTradeRequest): Observable<Trade> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer ' +
+          this.cookieService.get('.AspNetCore.Identity.Application'),
+      }),
+    };
+    const tradeUrl = environment.apiUrl + `/trades`;
+    return this.http.put<Trade>(tradeUrl, trade, httpOptions);
   }
 
   getAssetsRates(tickerNames: string[]): Observable<AssetRateResponse[]> {

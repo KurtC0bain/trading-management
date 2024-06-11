@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { Observable, combineLatest } from 'rxjs';
@@ -29,7 +30,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { tradeActions } from '../../store/actions';
-import { EditTradeComponent } from '../edit-trade/edit-trade.component';
+import { AddEditTradeComponent } from '../add-edit-trade/add-edit-trade.component';
 import { ConfirmDeleteTradeComponent } from '../confirm-delete-trade/confirm-delete-trade.component';
 import { AssetsRatesComponent } from '../assets-rates/assets-rates.component';
 import { AssetRateResponse } from '../../types/asset-rate.interface';
@@ -56,6 +57,7 @@ import { AssetRateResponse } from '../../types/asset-rate.interface';
     MatIconModule,
     MatDialogModule,
     MatChipsModule,
+    MatProgressSpinnerModule,
   ],
   styleUrl: './trades.component.css',
 })
@@ -176,9 +178,16 @@ export class TradesComponent {
   }
 
   openEditDialog(trade: Trade): void {
-    this.dialog.open(EditTradeComponent, {
+    this.dialog.open(AddEditTradeComponent, {
       width: '600px',
       data: trade,
+    });
+  }
+
+  onAdd(): void {
+    this.dialog.open(AddEditTradeComponent, {
+      width: '600px',
+      data: null,
     });
   }
 

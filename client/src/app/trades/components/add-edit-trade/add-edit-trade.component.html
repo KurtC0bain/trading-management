@@ -1,0 +1,81 @@
+<h1 mat-dialog-title>{{ isEditMode ? "Edit Trade" : "Create Trade" }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="tradeForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Setup</mat-label>
+      <mat-select formControlName="setupId">
+        <mat-option *ngFor="let setup of setups$ | async" [value]="setup.id">
+          {{ setup.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Pair</mat-label>
+      <input matInput formControlName="pairId" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Initial Deposit</mat-label>
+      <input matInput type="number" formControlName="initialDeposit" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Price Entry</mat-label>
+      <input matInput type="number" formControlName="priceEntry" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Price Stop</mat-label>
+      <input matInput type="number" formControlName="priceStop" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Price Take</mat-label>
+      <input matInput type="number" formControlName="priceTake" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Deposit Risk</mat-label>
+      <input matInput type="number" formControlName="depositRisk" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Position Type</mat-label>
+      <mat-select formControlName="positionType">
+        <mat-option *ngFor="let type of positionTypes" [value]="type">{{
+          type
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Direction Type</mat-label>
+      <mat-select formControlName="directionType">
+        <mat-option *ngFor="let type of directionTypes" [value]="type">{{
+          type
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Rating</mat-label>
+      <input matInput type="number" formControlName="rating" />
+    </mat-form-field>
+    <ng-container *ngIf="isEditMode">
+      <mat-form-field appearance="fill">
+        <mat-label>Result Type</mat-label>
+        <mat-select formControlName="resultType">
+          <mat-option *ngFor="let type of resultTypes" [value]="type">{{
+            type
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Profit</mat-label>
+        <input matInput type="number" formControlName="profit" />
+      </mat-form-field>
+    </ng-container>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSave()">Save</button>
+</div>

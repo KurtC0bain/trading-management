@@ -14,7 +14,12 @@ import { authActions } from '../../auth/store/actions';
 export const getTradesEffect = createEffect(
   (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
     return actions$.pipe(
-      ofType(tradeActions.getAllTrades, tradeActions.deleteTradeSuccess),
+      ofType(
+        tradeActions.getAllTrades,
+        tradeActions.deleteTradeSuccess,
+        tradeActions.createTradeSuccess,
+        tradeActions.updateTradeSuccess
+      ),
       switchMap(() => {
         return tradeService.getAllTrades().pipe(
           map((response: Trade[]) => {
@@ -81,6 +86,58 @@ export const deleteTradeEffect = createEffect(
 
             return of(
               tradeActions.deleteTradeFailure({
+                errors: errorResponse,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const createTradeEffect = createEffect(
+  (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
+    return actions$.pipe(
+      ofType(tradeActions.createTrade),
+      switchMap(({ trade }) => {
+        return tradeService.createTrade(trade).pipe(
+          map((response: Trade) => {
+            return tradeActions.createTradeSuccess({ response });
+          }),
+          catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
+            return of(
+              tradeActions.createTradeFailure({
+                errors: errorResponse,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const updateTradeEffect = createEffect(
+  (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
+    return actions$.pipe(
+      ofType(tradeActions.updateTrade),
+      switchMap(({ trade }) => {
+        return tradeService.updateTrade(trade).pipe(
+          map((response: Trade) => {
+            return tradeActions.updateTradeSuccess({ response });
+          }),
+          catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
+            return of(
+              tradeActions.updateTradeFailure({
                 errors: errorResponse,
               })
             );
