@@ -127,9 +127,16 @@ export const redirectAfterRegisterEffect = createEffect(
 );
 
 export const checkAuthEffect = createEffect(
-  (actions$ = inject(Actions), router = inject(Router)) => {
+  (
+    actions$ = inject(Actions),
+    router = inject(Router),
+    cookieService = inject(CookieService)
+  ) => {
     return actions$.pipe(
       ofType(authActions.checkAuthFailure),
+      map(() => {
+        cookieService.delete('.AspNetCore.Identity.Application');
+      }),
       tap(() => {
         router.navigateByUrl('/login');
       })

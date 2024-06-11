@@ -5,6 +5,7 @@ import { catchError, map, of, switchMap } from 'rxjs';
 import { factorActions } from './actions';
 import { Factor } from '../types/factor.interface';
 import { ErrorResponse } from '../../shared/types/errorResponse.interface';
+import { authActions } from '../../auth/store/actions';
 
 export const getFactorsEffect = createEffect(
   (actions$ = inject(Actions), factorService = inject(FactorService)) => {
@@ -21,6 +22,10 @@ export const getFactorsEffect = createEffect(
             return factorActions.getAllFactorsSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
+
             return of(
               factorActions.getAllFactorsFailure({
                 errors: errorResponse,
@@ -44,6 +49,10 @@ export const getFactorByIdEffect = createEffect(
             return factorActions.getFactorByIdSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
+
             return of(
               factorActions.getFactorByIdFailure({
                 errors: errorResponse,
@@ -67,6 +76,9 @@ export const deleteFactorEffect = createEffect(
             return factorActions.deleteFactorSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
             return of(
               factorActions.deleteFactorFailure({
                 errors: errorResponse,
@@ -90,6 +102,9 @@ export const createFactorEffect = createEffect(
             return factorActions.createFactorSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
             return of(
               factorActions.createFactorFailure({
                 errors: errorResponse,
@@ -113,6 +128,9 @@ export const updateFactorEffect = createEffect(
             return factorActions.updateFactorSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
             return of(
               factorActions.updateFactorFailure({
                 errors: errorResponse,

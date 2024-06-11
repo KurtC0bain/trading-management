@@ -23,18 +23,8 @@ namespace TM.Application.Setups.Handlers
 
         public async Task<Result<InternalError, SetupResponse>> Handle(CreateSetupCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.SetupRequest.UserID);
-            if (user == null)
-            {
-                var userNotFoundError = new UserNotFoundError(request.SetupRequest.UserID);
-                return new Result<InternalError, SetupResponse>(userNotFoundError);
-            }
-
             var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
-            if (user.Id != currentUser?.Id)
-            {
-                return new Result<InternalError, SetupResponse>(new WrongUserError());
-            }
+            request.SetupRequest.UserID = currentUser?.Id;
 
             var factors = await _factorRepository.FindByConditionAsync(x => request.SetupRequest.Factors.Contains(x.ID));
 

@@ -9,6 +9,7 @@ import { tradeActions } from './actions';
 import { Trade } from '../types/trade.interface';
 import { ErrorResponse } from '../../shared/types/errorResponse.interface';
 import { AssetRateResponse } from '../types/asset-rate.interface';
+import { authActions } from '../../auth/store/actions';
 
 export const getTradesEffect = createEffect(
   (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
@@ -20,6 +21,10 @@ export const getTradesEffect = createEffect(
             return tradeActions.getAllTradesSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
+
             return of(
               tradeActions.getAllTradesFailure({
                 errors: errorResponse,
@@ -43,6 +48,10 @@ export const getTradeByIdEffect = createEffect(
             return tradeActions.getTradeByIdSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
+
             return of(
               tradeActions.getTradeByIdFailure({
                 errors: errorResponse,
@@ -66,6 +75,10 @@ export const deleteTradeEffect = createEffect(
             return tradeActions.deleteTradeSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
+
             return of(
               tradeActions.deleteTradeFailure({
                 errors: errorResponse,
@@ -89,6 +102,10 @@ export const getAssetsRatesEffect = createEffect(
             return tradeActions.getAssetsRatesSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
+
             return of(
               tradeActions.getAssetsRatesFailure({
                 errors: errorResponse,
