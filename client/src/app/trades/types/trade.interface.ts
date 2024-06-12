@@ -1,8 +1,8 @@
 export interface Trade {
   id: string;
-  userId: string;
-  setupId: string;
-  pairId: string;
+  userID: string;
+  setupID: string;
+  pairID: string;
   date?: Date;
   initialDeposit: number;
   riskAmount: number;

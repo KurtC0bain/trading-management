@@ -1,56 +1,74 @@
 .trades-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   padding: 20px;
 }
 
-.assets-rates-card,
-.trades-list-card {
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(135deg, #f0f4f8, #d9e4f5);
-}
-
-.trades-header-card {
-  background: linear-gradient(135deg, #7e57c2, #9575cd);
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
-}
-
-.header-content {
+.header-with-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding: 16px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.header-title {
-  font-size: 1.5rem;
+.header-with-button h1 {
+  font-size: 24px;
   font-weight: bold;
-  color: white;
 }
 
 .create-button {
-  background-color: #9575cd;
+  background-color: white;
+  color: #6a11cb;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.create-button:hover {
+  background-color: #2575fc;
   color: white;
+}
+
+.assets-rates-card, .trades-list-card {
+  margin-bottom: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.assets-rates-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .mat-table-container {
   overflow-x: auto;
 }
 
-.custom-table {
-  width: 100%;
-  border-radius: 10px;
-  background: white;
+.mat-header-row-custom {
+  background-color: #6a11cb;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
-.mat-header-row-custom {
-  background: linear-gradient(135deg, #7e57c2, #9575cd);
-  color: white;
+.mat-header-cell {
+  border-bottom: 2px solid #ddd;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: #e0e0e0;
+  margin: 2px;
+}
+
+.mat-header-cell:hover {
+  background-color: #d1d1d1;
 }
 
 .mat-column-date {
@@ -60,17 +78,6 @@
 .actions-cell {
   display: flex;
   gap: 10px;
-  justify-content: center;
-}
-
-.mat-chip-option {
-  border-radius: 15px;
-  padding: 0 10px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
 }
 
 .mat-chip-listbox {
@@ -78,20 +85,55 @@
   justify-content: center;
 }
 
-.mat-paginator {
-  margin-top: 20px;
+.mat-chip-option {
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 5px 10px;
+  color: white;
 }
 
-.mat-row {
-  height: 60px;
-}
-
-.mat-cell,
-.mat-header-cell {
-  padding: 0 16px;
+.mat-cell, .mat-header-cell {
   text-align: center;
 }
 
-.mat-icon {
+.mat-header-cell {
+  font-weight: bold;
   color: white;
+}
+
+.mat-row {
+  background: white;
+  border-bottom: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+.mat-row:hover {
+  background-color: #f0f4f8;
+}
+
+.mat-header-row {
+  border-bottom: 1px solid #ddd;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+mat-card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mat-card-content {
+  padding: 20px;
+}
+
+.mat-card-header {
+  padding: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-card-title {
+  font-size: 20px;
+  font-weight: 500;
 }

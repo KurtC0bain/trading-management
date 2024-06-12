@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { AssetRateResponse } from '../types/asset-rate.interface';
 import { CreateTradeRequest } from '../types/create-trade.interface';
 import { UpdateTradeRequest } from '../types/update-trade.interface';
+import { PairResponse } from '../types/pair.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -79,6 +80,8 @@ export class TradeService {
           this.cookieService.get('.AspNetCore.Identity.Application'),
       }),
     };
+
+    trade.date.setDate(trade.date.getDate() + 1);
     const tradeUrl = environment.apiUrl + `/trades`;
     return this.http.put<Trade>(tradeUrl, trade, httpOptions);
   }
@@ -99,5 +102,19 @@ export class TradeService {
       { TickerNames: tickerNames },
       httpOptions
     );
+  }
+
+  getAllPairs(): Observable<PairResponse[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer ' +
+          this.cookieService.get('.AspNetCore.Identity.Application'),
+      }),
+    };
+
+    const pairsUrl = environment.apiUrl + '/pairs/';
+    return this.http.get<PairResponse[]>(pairsUrl, httpOptions);
   }
 }

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,17 +13,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { Observable, combineLatest } from 'rxjs';
+import { map, filter, tap } from 'rxjs/operators';
 import { DirectionType, ResultType, Trade } from '../../types/trade.interface';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import {
   selectAssets,
-  selectErrors,
   selectIsAssetsLoading,
   selectIsLoading,
+  selectIsPairsLoading,
+  selectPairs,
   selectTrades,
 } from '../../store/reducers';
-
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { RouterModule } from '@angular/router';
@@ -34,10 +33,19 @@ import { AddEditTradeComponent } from '../add-edit-trade/add-edit-trade.componen
 import { ConfirmDeleteTradeComponent } from '../confirm-delete-trade/confirm-delete-trade.component';
 import { AssetsRatesComponent } from '../assets-rates/assets-rates.component';
 import { AssetRateResponse } from '../../types/asset-rate.interface';
+import { PairResponse } from '../../types/pair.interface';
+import { Setup } from '../../../setups/types/setup.interface';
+import { setupActions } from '../../../setups/store/actions';
+import {
+  selectIsSetupsLoading,
+  selectSetups,
+} from '../../../setups/store/reducers';
+import { Conditional } from '@angular/compiler';
 
 @Component({
   selector: 'tm-trades',
   templateUrl: './trades.component.html',
+  styleUrls: ['./trades.component.css'],
   standalone: true,
   imports: [
     AssetsRatesComponent,
@@ -59,20 +67,16 @@ import { AssetRateResponse } from '../../types/asset-rate.interface';
     MatChipsModule,
     MatProgressSpinnerModule,
   ],
-  styleUrl: './trades.component.css',
 })
 export class TradesComponent {
-  pairs = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ARBUSDT'];
-
   trades$!: Observable<Trade[] | null>;
   isLoading$!: Observable<boolean>;
-  isAssetsLoading$!: Observable<boolean>;
+  setups$!: Observable<Setup[] | null>;
+  isSetupsLoading$!: Observable<boolean>;
+  pairs$!: Observable<PairResponse[] | null>;
+  isPairsLoading$!: Observable<boolean>;
   assetRates$!: Observable<AssetRateResponse[] | null>;
-
-  // data$ = combineLatest({
-  //   isLoading: this.store.select(selectIsLoading),
-  //   errors: this.store.select(selectErrors),
-  // });
+  isAssetsLoading$!: Observable<boolean>;
 
   displayedColumns: string[] = [
     'setup',
@@ -94,34 +98,73 @@ export class TradesComponent {
   ];
   dataSource = new MatTableDataSource<Trade>();
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(
-    private store: Store,
-    private fb: FormBuilder,
-    private dialog: MatDialog
-  ) {}
+  pairsMap: { [key: string]: string } = {};
+  setupsMap: { [key: string]: string } = {};
+
+  constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit(): void {
+    this.store.dispatch(tradeActions.getAllTrades());
+    this.store.dispatch(tradeActions.getAllPairs());
+    this.store.dispatch(setupActions.getAllSetups());
+
     this.isLoading$ = this.store.select(selectIsLoading);
+    this.isSetupsLoading$ = this.store.select(selectIsSetupsLoading);
+    this.isPairsLoading$ = this.store.select(selectIsPairsLoading);
     this.isAssetsLoading$ = this.store.select(selectIsAssetsLoading);
 
-    this.store.dispatch(tradeActions.getAllTrades());
-    this.store.dispatch(
-      tradeActions.getAssetsRates({ tickerNames: this.pairs })
-    );
-
     this.trades$ = this.store.select(selectTrades);
-    this.assetRates$ = this.store.select(selectAssets);
+    this.setups$ = this.store.select(selectSetups);
+    this.pairs$ = this.store.select(selectPairs);
 
-    this.trades$.subscribe((trades) => {
-      if (trades) {
-        this.dataSource.data = trades;
+    combineLatest([this.pairs$, this.setups$, this.trades$])
+      .pipe(
+        filter(([pairs, setups, trades]) => !!pairs && !!setups && !!trades),
+        tap(([pairs, setups]) => {
+          pairs?.forEach((pair) => {
+            this.pairsMap[pair.id] = pair.name;
+          });
+
+          setups?.forEach((setup) => {
+            this.setupsMap[setup.id] = setup.name;
+          });
+        }),
+        map(([pairs, setups, trades]) => {
+          console.log(trades);
+          return (trades || []).map((trade) => {
+            console.log(trade);
+
+            console.log(this.pairsMap);
+            console.log(trade.pairID);
+
+            console.log(this.pairsMap[trade.pairID]);
+            let res = {
+              ...trade,
+              pairName: this.pairsMap[trade.pairID] || '',
+              setupName: this.setupsMap[trade.setupID] || '',
+              directionTypeIcon: this.getDirectionTypeIcon(trade.directionType),
+            };
+            console.log(res);
+
+            return res;
+          });
+        })
+      )
+      .subscribe((trades) => {
+        this.dataSource.data = trades ?? [];
+      });
+
+    this.pairs$.subscribe((pairs) => {
+      const tickerNames = pairs?.map((pair) => pair.name);
+      if (tickerNames?.length) {
+        this.store.dispatch(tradeActions.getAssetsRates({ tickerNames }));
       }
     });
+
+    this.assetRates$ = this.store.select(selectAssets);
   }
 
   ngAfterViewInit() {
@@ -140,10 +183,9 @@ export class TradesComponent {
 
   getProfitChipStyle(profit: number) {
     const backgroundColor = profit >= 0 ? 'green' : 'red';
-    const textColor = 'white';
     return {
       backgroundColor,
-      textColor,
+      color: 'white',
     };
   }
 
@@ -204,8 +246,11 @@ export class TradesComponent {
   }
 
   refreshAssetRates(): void {
-    this.store.dispatch(
-      tradeActions.getAssetsRates({ tickerNames: this.pairs })
-    );
+    this.pairs$.subscribe((pairs) => {
+      const tickerNames = pairs?.map((pair) => pair.name);
+      if (tickerNames?.length) {
+        this.store.dispatch(tradeActions.getAssetsRates({ tickerNames }));
+      }
+    });
   }
 }

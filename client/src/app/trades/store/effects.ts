@@ -10,6 +10,7 @@ import { Trade } from '../types/trade.interface';
 import { ErrorResponse } from '../../shared/types/errorResponse.interface';
 import { AssetRateResponse } from '../types/asset-rate.interface';
 import { authActions } from '../../auth/store/actions';
+import { PairResponse } from '../types/pair.interface';
 
 export const getTradesEffect = createEffect(
   (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
@@ -165,6 +166,33 @@ export const getAssetsRatesEffect = createEffect(
 
             return of(
               tradeActions.getAssetsRatesFailure({
+                errors: errorResponse,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const getAllPairsEffect = createEffect(
+  (actions$ = inject(Actions), tradeService = inject(TradeService)) => {
+    return actions$.pipe(
+      ofType(tradeActions.getAllPairs),
+      switchMap(() => {
+        return tradeService.getAllPairs().pipe(
+          map((response: PairResponse[]) => {
+            return tradeActions.getAllPairsSuccess({ response });
+          }),
+          catchError((errorResponse: ErrorResponse) => {
+            if (errorResponse.status == 401) {
+              return of(authActions.checkAuthFailure());
+            }
+
+            return of(
+              tradeActions.getAllPairsFailure({
                 errors: errorResponse,
               })
             );

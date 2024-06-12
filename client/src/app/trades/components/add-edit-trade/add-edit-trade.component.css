@@ -1,13 +1,32 @@
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 mat-form-field {
-    width: 100%;
-  }
-  
-  mat-dialog-actions {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  mat-dialog-content {
-    overflow: hidden;
-  }
-  
+  width: 100%;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+button[mat-raised-button] {
+  background-color: #9575cd;
+  color: white;
+}
+
+button[mat-button] {
+  color: #9575cd;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #6d4caa;
+}
+
+button[mat-button]:hover {
+  color: #6d4caa;
+}

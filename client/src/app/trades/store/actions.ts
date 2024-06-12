@@ -4,6 +4,7 @@ import { ErrorResponse } from '../../shared/types/errorResponse.interface';
 import { AssetRateResponse } from '../types/asset-rate.interface';
 import { CreateTradeRequest } from '../types/create-trade.interface';
 import { UpdateTradeRequest } from '../types/update-trade.interface';
+import { PairResponse } from '../types/pair.interface';
 
 export const tradeActions = createActionGroup({
   source: 'trades',
@@ -31,5 +32,9 @@ export const tradeActions = createActionGroup({
     GetAssetsRates: props<{ tickerNames: string[] }>(),
     'GetAssetsRates Success': props<{ response: AssetRateResponse[] }>(),
     'GetAssetsRates Failure': props<{ errors: ErrorResponse }>(),
+
+    GetAllPairs: emptyProps(),
+    'GetAllPairs Success': props<{ response: PairResponse[] }>(),
+    'GetAllPairs Failure': props<{ errors: ErrorResponse }>(),
   },
 });

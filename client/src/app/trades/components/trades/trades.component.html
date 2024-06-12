@@ -16,25 +16,22 @@
       <tm-assets-rates
         [assetRates]="assetRates$ | async"
         [loading]="isAssetsLoading$ | async"
-      >
-      </tm-assets-rates>
+      ></tm-assets-rates>
     </mat-card-content>
   </mat-card>
 
-  <mat-card class="trades-header-card">
-    <mat-card-header class="header-content">
-      <mat-card-title class="header-title">Trade History</mat-card-title>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="onAdd()"
-        class="create-button"
-      >
-        <mat-icon>add</mat-icon>
-        Create Trade
-      </button>
-    </mat-card-header>
-  </mat-card>
+  <div class="header-with-button">
+    <h1>Trade History</h1>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onAdd()"
+      class="create-button"
+    >
+      <mat-icon>add</mat-icon>
+      Create Trade
+    </button>
+  </div>
 
   <mat-card class="trades-list-card">
     <mat-card-content>
@@ -48,13 +45,13 @@
           <!-- Setup Column -->
           <ng-container matColumnDef="setup">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Setup</th>
-            <td mat-cell *matCellDef="let trade">{{ trade.setupId }}</td>
+            <td mat-cell *matCellDef="let trade">{{ trade.setupName }}</td>
           </ng-container>
 
           <!-- Pair Column -->
           <ng-container matColumnDef="pair">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Pair</th>
-            <td mat-cell *matCellDef="let trade">{{ trade.pairId }}</td>
+            <td mat-cell *matCellDef="let trade">{{ trade.pairName }}</td>
           </ng-container>
 
           <!-- Date Column -->
@@ -140,7 +137,9 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Profit</th>
             <td mat-cell *matCellDef="let trade">
               <mat-chip-listbox>
-                <mat-chip-option [ngStyle]="getProfitChipStyle(trade.profit)">
+                <mat-chip-option
+                  [ngStyle]="getResultTypeChipStyle(trade.resultType)"
+                >
                   {{ trade.profit }}
                 </mat-chip-option>
               </mat-chip-listbox>
@@ -166,9 +165,7 @@
               Direction Type
             </th>
             <td mat-cell *matCellDef="let trade">
-              <mat-icon>{{
-                getDirectionTypeIcon(trade.directionType)
-              }}</mat-icon>
+              <mat-icon>{{ trade.directionTypeIcon }}</mat-icon>
             </td>
           </ng-container>
 

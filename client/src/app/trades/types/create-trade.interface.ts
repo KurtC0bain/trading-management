@@ -1,7 +1,7 @@
 export interface CreateTradeRequest {
-  userId: string;
-  setupId: string;
-  pairId: string;
+  userID: string;
+  setupID: string;
+  pairID: string;
   date: Date;
   initialDeposit: number;
   priceEntry: number;
