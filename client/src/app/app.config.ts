@@ -15,10 +15,12 @@ import * as authEffects from './auth/store/effects';
 import * as tradeEffects from './trades/store/effects';
 import * as factorEffects from './factors/store/effects';
 import * as setupEffects from './setups/store/effects';
+import * as analysisEffects from './analysis/store/effects';
 import { tradeFeatureKey, tradeReducer } from './trades/store/reducers';
 import { MatNativeDateModule } from '@angular/material/core';
 import { factorFeatureKey, factorReducer } from './factors/store/reducers';
 import { setupFeatureKey, setupReducer } from './setups/store/reducers';
+import { analysisFeatureKey, analysisReducer } from './analysis/store/reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,10 +33,12 @@ export const appConfig: ApplicationConfig = {
     provideState(tradeFeatureKey, tradeReducer),
     provideState(factorFeatureKey, factorReducer),
     provideState(setupFeatureKey, setupReducer),
+    provideState(analysisFeatureKey, analysisReducer),
     provideEffects(authEffects),
     provideEffects(tradeEffects),
     provideEffects(factorEffects),
     provideEffects(setupEffects),
+    provideEffects(analysisEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

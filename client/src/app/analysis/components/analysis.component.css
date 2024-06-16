@@ -1,0 +1,11 @@
+.analysis-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.chart-container {
+  width: 80%;
+  max-width: 600px;
+}

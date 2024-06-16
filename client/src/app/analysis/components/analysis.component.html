@@ -1,0 +1,22 @@
+<!-- analysis.component.html -->
+<div>
+  <h2>Setup Efficiency</h2>
+  <canvas
+    baseChart
+    [data]="setupEfficiencyData"
+    [options]="setupEfficiencyOptions"
+    chartType="doughnut"
+  >
+  </canvas>
+</div>
+
+<div>
+  <h2>Assets Income</h2>
+  <canvas
+    baseChart
+    [data]="assetIncomeData"
+    [options]="assetIncomeOptions"
+    chartType="bar"
+  >
+  </canvas>
+</div>
