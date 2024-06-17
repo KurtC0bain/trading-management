@@ -25,6 +25,8 @@ import { PairResponse } from '../../types/pair.interface';
 import { Setup } from '../../../setups/types/setup.interface';
 import { selectPairs } from '../../store/reducers';
 import { selectSetups } from '../../../setups/store/reducers';
+import { CreateTradeRequest } from '../../types/create-trade.interface';
+import { UpdateTradeRequest } from '../../types/update-trade.interface';
 
 @Component({
   selector: 'tm-add-edit-trade',
@@ -64,8 +66,8 @@ export class AddEditTradeComponent implements OnInit {
 
   ngOnInit(): void {
     this.tradeForm = this.fb.group({
-      setupId: [this.data?.setupID || '', Validators.required],
-      pairId: [this.data?.pairID || '', Validators.required],
+      setupID: [this.data?.setupID || '', Validators.required],
+      pairID: [this.data?.pairID || '', Validators.required],
       date: [this.data?.date || new Date(), Validators.required],
       initialDeposit: [this.data?.initialDeposit || 0, Validators.required],
       priceEntry: [this.data?.priceEntry || 0, Validators.required],
@@ -86,19 +88,26 @@ export class AddEditTradeComponent implements OnInit {
         'profit',
         this.fb.control(this.data?.profit || 0, Validators.required)
       );
+      this.tradeForm.addControl('id', this.fb.control(this.data?.id));
     }
   }
 
   onSubmit(): void {
     if (this.tradeForm.valid) {
       if (this.isUpdateMode) {
-        this.store.dispatch(
-          tradeActions.updateTrade({ trade: this.tradeForm.value })
-        );
+        let res = this.tradeForm.value;
+        res.userID = '';
+        // let newDate = new Date(res.date);
+        // newDate.setDate(newDate.getDate() + 1);
+        // res.date = newDate;
+        this.store.dispatch(tradeActions.updateTrade({ trade: res }));
       } else {
-        this.store.dispatch(
-          tradeActions.createTrade({ trade: this.tradeForm.value })
-        );
+        let res = this.tradeForm.value;
+        res.userID = '';
+        // let newDate = new Date(res.date);
+        // newDate.setDate(newDate.getDate() + 1);
+        // res.date = newDate;
+        this.store.dispatch(tradeActions.createTrade({ trade: res }));
       }
       this.dialogRef.close();
     }

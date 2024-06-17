@@ -3,7 +3,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AnalysisService } from '../services/analysis.service';
 import { analysisActions } from './actions';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { AssetsIncome, SetupsEfficiency } from '../types/analysis.interface';
 import { ErrorResponse } from '../../shared/types/errorResponse.interface';
 import { authActions } from '../../auth/store/actions';
 
@@ -13,7 +12,7 @@ export const getAssetsIncome = createEffect(
       ofType(analysisActions.getAssetsIncome),
       switchMap(() => {
         return analysisService.getAssetsIncome().pipe(
-          map((response: AssetsIncome[]) => {
+          map((response) => {
             return analysisActions.getAssetsIncomeSuccess({ response });
           }),
           catchError((errorResponse: ErrorResponse) => {
@@ -40,8 +39,10 @@ export const getSetupsEfficiency = createEffect(
       ofType(analysisActions.getSetupsEfficiency),
       switchMap(() => {
         return analysisService.getSetupEfficiency().pipe(
-          map((response: SetupsEfficiency[]) => {
-            return analysisActions.getSetupsEfficiencySuccess({ response });
+          map((setups) => {
+            return analysisActions.getSetupsEfficiencySuccess({
+              response: setups,
+            });
           }),
           catchError((errorResponse: ErrorResponse) => {
             if (errorResponse.status == 401) {

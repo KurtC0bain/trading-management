@@ -22,7 +22,7 @@ namespace TM.Application.Common.Helpers
             }
             else if (trade.ResultType == ResultType.Stop)
             {
-                trade.Profit = -trade.RiskAmount;
+                trade.Profit = trade.RiskAmount * -1;
             }
             else if(trade.ResultType == ResultType.BreakEven)
             {

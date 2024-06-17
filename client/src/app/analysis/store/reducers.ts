@@ -22,7 +22,7 @@ export const analysisFeature = createFeature({
       ...state,
       loading: false,
       errors: null,
-      assetsIncome: action.response,
+      assetsIncome: action.response.assets,
     })),
     on(analysisActions.getAssetsIncomeFailure, (state, action) => ({
       ...state,
@@ -39,7 +39,7 @@ export const analysisFeature = createFeature({
       ...state,
       loading: false,
       errors: null,
-      setupEfficiency: action.response,
+      setupEfficiency: action.response.setups,
     })),
     on(analysisActions.getSetupsEfficiencyFailure, (state, action) => ({
       ...state,

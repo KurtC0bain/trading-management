@@ -81,7 +81,6 @@ export class TradeService {
       }),
     };
 
-    trade.date.setDate(trade.date.getDate() + 1);
     const tradeUrl = environment.apiUrl + `/trades`;
     return this.http.put<Trade>(tradeUrl, trade, httpOptions);
   }

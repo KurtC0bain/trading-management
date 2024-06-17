@@ -3,7 +3,7 @@
   <form [formGroup]="tradeForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>Setup</mat-label>
-      <mat-select formControlName="setupId">
+      <mat-select formControlName="setupID">
         <mat-option *ngFor="let setup of setups$ | async" [value]="setup.id">
           {{ setup.name }}
         </mat-option>
@@ -12,7 +12,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Pair</mat-label>
-      <mat-select formControlName="pairId">
+      <mat-select formControlName="pairID">
         <mat-option *ngFor="let pair of pairs$ | async" [value]="pair.id">
           {{ pair.name }}
         </mat-option>

@@ -8,9 +8,10 @@ using TM.Domain.Entities;
 
 namespace TM.Application.Analysis.Handlers.GetAssetsIncome
 {
-    public class GetAssetsIncomeQueryHandler(IRepositoryBase<Trade> repository, UserManager<IdentityUser> userManager) : IRequestHandler<GetAssetsIncomeQuery, Result<InternalError, AssetsIncomeResponse>>
+    public class GetAssetsIncomeQueryHandler(IRepositoryBase<Trade> repository, IRepositoryBase<Pair> pairRepository, UserManager<IdentityUser> userManager) : IRequestHandler<GetAssetsIncomeQuery, Result<InternalError, AssetsIncomeResponse>>
     {
         private readonly IRepositoryBase<Trade> _repository = repository;
+        private readonly IRepositoryBase<Pair> _pairRepository = pairRepository;
         private readonly UserManager<IdentityUser> _userManager = userManager;
 
         public async Task<Result<InternalError, AssetsIncomeResponse>> Handle(GetAssetsIncomeQuery request, CancellationToken cancellationToken)
@@ -28,6 +29,11 @@ namespace TM.Application.Analysis.Handlers.GetAssetsIncome
                                                  AssetId = g.Key,
                                                  Income = g.Sum(t => t.Profit)
                                              }).ToList();
+
+            foreach (var item in assetsIncome)
+            {
+                item.AssetId = (await _pairRepository.FindByIdAsync(item.AssetId)).Name;
+            }
 
             return new AssetsIncomeResponse { Assets = assetsIncome };
         }
