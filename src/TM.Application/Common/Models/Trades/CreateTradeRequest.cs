@@ -2,7 +2,7 @@
 {
     public class CreateTradeRequest
     {
-        public required string UserID { get; set; }
+        public string UserID { get; set; }
         public required string SetupID { get; set; }
         public required string PairID { get; set; }
 

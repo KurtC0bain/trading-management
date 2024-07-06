@@ -1,0 +1,98 @@
+<h2 mat-dialog-title>{{ isUpdateMode ? "Edit Trade" : "Create Trade" }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="tradeForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Setup</mat-label>
+      <mat-select formControlName="setupID">
+        <mat-option *ngFor="let setup of setups$ | async" [value]="setup.id">
+          {{ setup.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Pair</mat-label>
+      <mat-select formControlName="pairID">
+        <mat-option *ngFor="let pair of pairs$ | async" [value]="pair.id">
+          {{ pair.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Initial Deposit</mat-label>
+      <input matInput formControlName="initialDeposit" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Price Entry</mat-label>
+      <input matInput formControlName="priceEntry" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Price Stop</mat-label>
+      <input matInput formControlName="priceStop" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Price Take</mat-label>
+      <input matInput formControlName="priceTake" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Deposit Risk</mat-label>
+      <input matInput formControlName="depositRisk" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Position Type</mat-label>
+      <mat-select formControlName="positionType">
+        <mat-option *ngFor="let type of positionTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Direction Type</mat-label>
+      <mat-select formControlName="directionType">
+        <mat-option *ngFor="let type of directionTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" *ngIf="isUpdateMode">
+      <mat-label>Result Type</mat-label>
+      <mat-select formControlName="resultType">
+        <mat-option *ngFor="let type of resultTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" *ngIf="isUpdateMode">
+      <mat-label>Profit</mat-label>
+      <input matInput formControlName="profit" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Rating</mat-label>
+      <input matInput formControlName="rating" type="number" />
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="onCancel()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ isUpdateMode ? "Update" : "Create" }}
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>

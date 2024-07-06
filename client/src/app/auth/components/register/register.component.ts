@@ -7,11 +7,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { register } from '../../store/actions';
+import { authActions } from '../../store/actions';
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 import { RouterLink } from '@angular/router';
-import { selectIsSubmitting } from '../../store/reducers';
-import { AuthStateInterface } from '../../types/authState.interface';
+import {
+  selectIsSubmitting,
+  selectValidationErrors,
+} from '../../store/reducers';
+import { combineLatest } from 'rxjs';
+import { RegisterErrorMessages } from '../../../shared/components/registerErrorMessage/registerErrorMessage.components';
 
 @Component({
   selector: 'tm-register',
@@ -25,6 +29,7 @@ import { AuthStateInterface } from '../../types/authState.interface';
     MatInputModule,
     MatButtonModule,
     RouterLink,
+    RegisterErrorMessages,
   ],
   styleUrl: './register.component.css',
 })
@@ -34,13 +39,14 @@ export class RegisterComponent {
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required],
   });
-  submitted = false;
-  isSubmitting$ = this.store.select(selectIsSubmitting);
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<{ auth: AuthStateInterface }>
-  ) {}
+  submitted = false;
+  data$ = combineLatest({
+    isSubmitting: this.store.select(selectIsSubmitting),
+    registerErrors: this.store.select(selectValidationErrors),
+  });
+
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   passwordMatchValidator(form: FormGroup) {
     return form.get('password')?.value === form.get('confirmPassword')?.value
@@ -61,7 +67,7 @@ export class RegisterComponent {
         email: this.form.get('email')?.getRawValue(),
         password: this.form.get('password')?.getRawValue(),
       };
-      this.store.dispatch(register({ request }));
+      this.store.dispatch(authActions.register({ request }));
     }
   }
 }

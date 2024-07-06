@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TM.Application.Behaviour.ValidationBehaviour&lt;TRequest, TResponse&gt;">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Behaviour\ValidationBehaviour.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TM.Application.Common.Helpers.CalculationHelper">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Helpers\CalculationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Application.Common.Helpers.TradeHelper">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Helpers\TradeHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Application.Factors.Handlers.CreateFactorHandler">
+    <Position X="2.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAABAAAAAAAABAAAAAAAAAAIAAAAAAAAAIAA=</HashCode>
+      <FileName>Factors\Handlers\CreateFactor\CreateFactorHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TM.Application.Validation.CreateFactorCommandValidator">
+    <Position X="4.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validation\CreateFactorCommandValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TM.Application.DependencyInjection">
+    <Position X="7.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DependencyInjection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TM.Application.Common.Interfaces.IAssetsService">
+    <Position X="6" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Interfaces\IAssetsService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TM.Application.Common.Interfaces.IRepositoryBase&lt;TEntity&gt;">
+    <Position X="4.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAIgEAAAAAAAgAAAAAAAAAAIA=</HashCode>
+      <FileName>Common\Interfaces\IRepositoryBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TM.Application.Common.Interfaces.ITradingManagementDbContext">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAEAIQAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Interfaces\ITradingManagementDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

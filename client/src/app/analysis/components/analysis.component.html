@@ -1,0 +1,12 @@
+<div *ngIf="loading$ | async; else content">Loading...</div>
+<ng-template #content>
+  <div *ngIf="errors$ | async as errors">
+    <div>Error: {{ errors.message }}</div>
+  </div>
+  <div *ngIf="setupEfficiencyChart">
+    <div [chart]="setupEfficiencyChart"></div>
+  </div>
+  <div *ngIf="assetsIncomeChart">
+    <div [chart]="assetsIncomeChart"></div>
+  </div>
+</ng-template>

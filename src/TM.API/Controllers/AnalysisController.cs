@@ -7,7 +7,7 @@ using TM.Domain.Entities;
 
 namespace TM.API.Controllers
 {
-    [Route("api/analysis")]
+    [Route("")]
     [ApiController]
     [Authorize]
     public class AnalysisController : ControllerBase

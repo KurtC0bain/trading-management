@@ -12,8 +12,8 @@ namespace TM.Application.Validation
     {
         public UpdateSetupCommandValidator()
         {
-            RuleFor(x => x.SetupRequest.Name).MaximumLength(20).NotEmpty();
-            RuleFor(x => x.SetupRequest.Description).MaximumLength(150);
+            RuleFor(x => x.SetupRequest.Name).MaximumLength(100).NotEmpty();
+            RuleFor(x => x.SetupRequest.Description).MaximumLength(1000);
         }
     }
 }

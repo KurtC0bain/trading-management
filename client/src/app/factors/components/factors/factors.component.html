@@ -1,0 +1,42 @@
+<div class="factors-container">
+  <div class="factors-header">
+    <h1>Factors</h1>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onAdd()"
+      class="create-button"
+    >
+      <mat-icon>add</mat-icon>
+      Create Factor
+    </button>
+  </div>
+
+  <div *ngIf="loading$ | async" class="loader-container">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <div class="factors-grid" *ngIf="!(loading$ | async)">
+    <div *ngFor="let factor of factors$ | async" class="factor-card">
+      <div class="factor-header">
+        <h2>{{ factor.name }}</h2>
+        <div class="factor-actions">
+          <button mat-icon-button matTooltip="Edit" (click)="onEdit(factor)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Delete"
+            (click)="onDelete(factor.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="factor-content">
+        <p>{{ factor.description }}</p>
+        <p><strong>Priority:</strong> {{ factor.priority }}</p>
+      </div>
+    </div>
+  </div>
+</div>

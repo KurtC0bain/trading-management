@@ -25,18 +25,8 @@ namespace TM.Application.Factors.Handlers
 
         public async Task<Result<InternalError, FactorResponse>> Handle(UpdateFactorCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.FactorRequest.UserID);
-            if (user == null)
-            {
-                var userNotFoundError = new UserNotFoundError(request.FactorRequest.UserID);
-                return new Result<InternalError, FactorResponse>(userNotFoundError);
-            }
-
             var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
-            if (user.Id != currentUser?.Id)
-            {
-                return new Result<InternalError, FactorResponse>(new WrongUserError());
-            }
+            request.FactorRequest.UserID = currentUser?.Id;
 
             var validationResult = await _validator.ValidateAsync(request, cancellationToken);
 

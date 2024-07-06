@@ -1,0 +1,61 @@
+<ng-container *ngIf="data$ | async as data">
+  <div class="register-container">
+    <mat-card class="register-card">
+      <mat-card-title class="register-title">Log In</mat-card-title>
+      <mat-card-content>
+        <tm-login-errors-messages
+          *ngIf="data.loginErrors"
+          [loginErrors]="data.loginErrors"
+        ></tm-login-errors-messages>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required />
+            <mat-error
+              *ngIf="submitted && form.get('email')?.hasError('required')"
+            >
+              Email is required
+            </mat-error>
+            <mat-error
+              *ngIf="submitted && form.get('email')?.hasError('email')"
+            >
+              Invalid email
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              required
+            />
+            <mat-error
+              *ngIf="submitted && form.get('password')?.hasError('required')"
+            >
+              Password is required
+            </mat-error>
+          </mat-form-field>
+          <div class="button-container">
+            <button
+              mat-raised-button
+              color="primary"
+              class="register-button"
+              type="submit"
+              [disabled]="form.invalid || data.isSubmitting"
+            >
+              Log In
+            </button>
+          </div>
+          <div class="login-link">
+            <p>
+              Don't have an account?
+              <a routerLink="/register" class="link">Register</a>
+            </p>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-container>

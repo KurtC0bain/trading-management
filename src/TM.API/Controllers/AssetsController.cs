@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TM.API.Helpers;
 using TM.Application.Assets.Queries;
+using TM.Application.Common.Models.Assets;
 
 namespace TM.API.Controllers
 {
@@ -11,10 +12,10 @@ namespace TM.API.Controllers
     {
         private readonly IMediator _mediator = mediator;
 
-        [HttpGet("rate/{tickerName}")]
-        public async Task<IActionResult> GetAssetRateByTickerName(string tickerName)
+        [HttpPost("rate")]
+        public async Task<IActionResult> GetAssetRateByTickerName(AssetsRatesRequest tickerNames)
         {
-            var query = new GetAssetRateQuery(tickerName);
+            var query = new GetAssetRateQuery(tickerNames);
 
             var assetInfo = await _mediator.Send(query);
 

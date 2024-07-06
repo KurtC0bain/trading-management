@@ -9,18 +9,24 @@ namespace TM.Application.Common.Helpers
         {
             trade.ID = isUpdate ? trade.ID : Guid.NewGuid().ToString();
             trade.Date = isUpdate ? trade.Date : DateTime.Now;
+            trade.ResultType = trade.ResultType is null ? ResultType.Pending : trade.ResultType;
+
             trade.Date = trade.Date is null ? DateTime.Now : trade.Date;
 
             trade.RiskRewardRatio = CalculationHelper.GetRiskRewardRatio(trade.PriceEntry, trade.PriceStop, trade.PriceTake);
             trade.RiskAmount = CalculationHelper.GetRiskAmount(trade.InitialDeposit, trade.DepositRisk);
 
-            if (trade.ResultType is null || trade.ResultType == ResultType.Take)
+            if (trade.ResultType == ResultType.Pending || trade.ResultType == ResultType.Take)
             {
                 trade.Profit = CalculationHelper.GetProfit(trade.PriceEntry, trade.PriceStop, trade.PriceTake, trade.DepositRisk, trade.InitialDeposit, trade.PositionType);
             }
             else if (trade.ResultType == ResultType.Stop)
             {
-                trade.Profit = -trade.RiskAmount;
+                trade.Profit = trade.RiskAmount * -1;
+            }
+            else if(trade.ResultType == ResultType.BreakEven)
+            {
+                trade.Profit = 0;
             }
         }
     }

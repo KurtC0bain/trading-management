@@ -22,18 +22,21 @@ namespace TM.Application.Trades.Handlers
 
         public async Task<Result<InternalError, TradeResponse>> Handle(UpdateTradeCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.TradeRequest.UserID);
-            if (user == null)
-            {
-                var userNotFoundError = new UserNotFoundError(request.TradeRequest.UserID);
-                return new Result<InternalError, TradeResponse>(userNotFoundError);
-            }
+            //var user = await _userManager.FindByIdAsync(request.TradeRequest.UserID);
+            //if (user == null)
+            //{
+            //    var userNotFoundError = new UserNotFoundError(request.TradeRequest.UserID);
+            //    return new Result<InternalError, TradeResponse>(userNotFoundError);
+            //}
 
+            //var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
+            //if (user.Id != currentUser?.Id)
+            //{
+            //    return new Result<InternalError, TradeResponse>(new WrongUserError());
+            //}
             var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
-            if (user.Id != currentUser?.Id)
-            {
-                return new Result<InternalError, TradeResponse>(new WrongUserError());
-            }
+            request.TradeRequest.UserID = currentUser?.Id;
+
 
             var setup = await _setupRepository.FindByIdAsync(request.TradeRequest.SetupID);
             if (setup is null)

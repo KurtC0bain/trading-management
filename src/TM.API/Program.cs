@@ -9,6 +9,21 @@ using TM.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var allowSpecificOrigins = "_allowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: allowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:4200")
+                                .AllowCredentials()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      }
+    );
+});
+
 builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
@@ -44,6 +59,8 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.MapIdentityApi<IdentityUser>();
+
+app.UseCors(allowSpecificOrigins);
 
 app.UseHttpsRedirection();
 

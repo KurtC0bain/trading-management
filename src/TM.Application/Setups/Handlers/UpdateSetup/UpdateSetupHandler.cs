@@ -21,18 +21,8 @@ namespace TM.Application.Setups.Handlers
 
         public async Task<Result<InternalError, SetupResponse>> Handle(UpdateSetupCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.SetupRequest.UserID);
-            if (user == null)
-            {
-                var userNotFoundError = new UserNotFoundError(request.SetupRequest.UserID);
-                return new Result<InternalError, SetupResponse>(userNotFoundError);
-            }
-
             var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
-            if (user.Id != currentUser?.Id)
-            {
-                return new Result<InternalError, SetupResponse>(new WrongUserError());
-            }
+            request.SetupRequest.UserID = currentUser?.Id;
 
             var factors = await _factorRepository.FindByConditionAsync(x => request.SetupRequest.Factors.Contains(x.ID));
 
@@ -59,9 +49,14 @@ namespace TM.Application.Setups.Handlers
             setup.ID = request.SetupId;
             setup.Factors = [.. factors];
 
-            var updatedSetup = await _repository.UpdateAsync(setup);
 
-            return _mapper.Map<SetupResponse>(updatedSetup);
+            var deletedSetup = await _repository.DeleteAsync(request.SetupId);
+            if (deletedSetup is null)
+                return new NotFoundError(request.SetupId);
+
+            var createdSetup = await _repository.AddAsync(setup);
+
+            return _mapper.Map<SetupResponse>(createdSetup);
         }
     }
 

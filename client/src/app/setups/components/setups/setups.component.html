@@ -1,0 +1,53 @@
+<div class="setups-container">
+  <div class="setups-header">
+    <h1>Setups</h1>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onAdd()"
+      class="create-button"
+    >
+      <mat-icon>add</mat-icon>
+      Create Setup
+    </button>
+  </div>
+
+  <div *ngIf="loading$ | async" class="loader-container">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <div class="setups-grid" *ngIf="!(loading$ | async)">
+    <div *ngFor="let setup of combinedSetups$ | async" class="setup-card">
+      <div class="setup-header">
+        <h2>{{ setup.name }}</h2>
+        <div class="setup-actions">
+          <button mat-icon-button matTooltip="Edit" (click)="onEdit(setup)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Delete"
+            (click)="onDelete(setup.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="setup-content">
+        <p>{{ setup.description }}</p>
+        <div *ngIf="setup.factorNames && setup.factorNames.length">
+          <h4>Factors:</h4>
+          <mat-chip-listbox>
+            <mat-chip
+              *ngFor="let factorName of setup.factorNames"
+              color="primary"
+              selected
+            >
+              {{ factorName }}
+            </mat-chip>
+          </mat-chip-listbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

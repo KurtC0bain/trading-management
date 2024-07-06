@@ -1,0 +1,224 @@
+<div class="trades-container">
+  <mat-card class="assets-rates-card">
+    <mat-card-header>
+      <div class="assets-rates-header">
+        <mat-card-title>Assets Rates</mat-card-title>
+        <button
+          mat-icon-button
+          [disabled]="isAssetsLoading$ | async"
+          (click)="refreshAssetRates()"
+        >
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <tm-assets-rates
+        [assetRates]="assetRates$ | async"
+        [loading]="isAssetsLoading$ | async"
+      ></tm-assets-rates>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="header-with-button">
+    <h1>Trade History</h1>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onAdd()"
+      class="create-button"
+    >
+      <mat-icon>add</mat-icon>
+      Create Trade
+    </button>
+  </div>
+
+  <mat-card class="trades-list-card">
+    <mat-card-content>
+      <div class="mat-table-container">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8 custom-table"
+          matSort
+        >
+          <!-- Setup Column -->
+          <ng-container matColumnDef="setup">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Setup</th>
+            <td mat-cell *matCellDef="let trade">{{ trade.setupName }}</td>
+          </ng-container>
+
+          <!-- Pair Column -->
+          <ng-container matColumnDef="pair">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Pair</th>
+            <td mat-cell *matCellDef="let trade">{{ trade.pairName }}</td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              class="mat-column-date"
+            >
+              Date
+            </th>
+            <td mat-cell *matCellDef="let trade" class="mat-column-date">
+              {{ trade.date | date : "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <!-- Initial Deposit Column -->
+          <ng-container matColumnDef="initialDeposit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Initial Deposit
+            </th>
+            <td mat-cell *matCellDef="let trade">{{ trade.initialDeposit }}</td>
+          </ng-container>
+
+          <!-- Risk Amount Column -->
+          <ng-container matColumnDef="riskAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Risk Amount
+            </th>
+            <td mat-cell *matCellDef="let trade">{{ trade.riskAmount }}</td>
+          </ng-container>
+
+          <!-- Price Entry Column -->
+          <ng-container matColumnDef="priceEntry">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Price Entry
+            </th>
+            <td mat-cell *matCellDef="let trade">{{ trade.priceEntry }}</td>
+          </ng-container>
+
+          <!-- Price Stop Column -->
+          <ng-container matColumnDef="priceStop">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Price Stop
+            </th>
+            <td mat-cell *matCellDef="let trade">{{ trade.priceStop }}</td>
+          </ng-container>
+
+          <!-- Price Take Column -->
+          <ng-container matColumnDef="priceTake">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Price Take
+            </th>
+            <td mat-cell *matCellDef="let trade">{{ trade.priceTake }}</td>
+          </ng-container>
+
+          <!-- Deposit Risk Column -->
+          <ng-container matColumnDef="depositRisk">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              style="width: 100px"
+            >
+              Deposit Risk
+            </th>
+            <td mat-cell *matCellDef="let trade">{{ trade.depositRisk }}</td>
+          </ng-container>
+
+          <!-- Risk Reward Ratio Column -->
+          <ng-container matColumnDef="riskRewardRatio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Risk Reward Ratio
+            </th>
+            <td mat-cell *matCellDef="let trade">
+              {{ trade.riskRewardRatio }}
+            </td>
+          </ng-container>
+
+          <!-- Profit Column -->
+          <ng-container matColumnDef="profit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Profit</th>
+            <td mat-cell *matCellDef="let trade">
+              <mat-chip-listbox>
+                <mat-chip-option
+                  [ngStyle]="getResultTypeChipStyle(trade.resultType)"
+                >
+                  {{ trade.profit }}
+                </mat-chip-option>
+              </mat-chip-listbox>
+            </td>
+          </ng-container>
+
+          <!-- Position Type Column -->
+          <ng-container matColumnDef="positionType">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              style="width: 80px"
+            >
+              Position Type
+            </th>
+            <td mat-cell *matCellDef="let trade">{{ trade.positionType }}</td>
+          </ng-container>
+
+          <!-- Direction Type Column -->
+          <ng-container matColumnDef="directionType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Direction Type
+            </th>
+            <td mat-cell *matCellDef="let trade">
+              <mat-icon>{{ trade.directionTypeIcon }}</mat-icon>
+            </td>
+          </ng-container>
+
+          <!-- Result Type Column -->
+          <ng-container matColumnDef="resultType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Result Type
+            </th>
+            <td mat-cell *matCellDef="let trade">
+              <mat-chip-listbox>
+                <mat-chip-option
+                  [ngStyle]="getResultTypeChipStyle(trade.resultType)"
+                >
+                  {{ trade.resultType || "Pending" }}
+                </mat-chip-option>
+              </mat-chip-listbox>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let trade">
+              <div class="actions-cell">
+                <button mat-icon-button (click)="openEditDialog(trade)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openDeleteDialog(trade)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Rating Column -->
+          <ng-container matColumnDef="rating">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Rating</th>
+            <td mat-cell *matCellDef="let trade">{{ trade.rating }}</td>
+          </ng-container>
+
+          <!-- Header and Row Declarations -->
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns"
+            class="mat-header-row-custom"
+          ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator
+          [pageSizeOptions]="[5, 20, 50]"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

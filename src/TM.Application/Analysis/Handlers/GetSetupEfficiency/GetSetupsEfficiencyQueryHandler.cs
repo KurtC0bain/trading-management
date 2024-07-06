@@ -11,9 +11,10 @@ using TM.Domain.Enums;
 
 namespace TM.Application.Analysis.Handlers.GetSetupEfficiency
 {
-    public class GetSetupsEfficiencyQueryHandler(IRepositoryBase<Trade> repository, UserManager<IdentityUser> userManager) : IRequestHandler<GetSetupsEfficiencyQuery, Result<InternalError, SetupsEfficiencyResponse>>
+    public class GetSetupsEfficiencyQueryHandler(IRepositoryBase<Trade> repository, IRepositoryBase<Setup> setupRepository, UserManager<IdentityUser> userManager) : IRequestHandler<GetSetupsEfficiencyQuery, Result<InternalError, SetupsEfficiencyResponse>>
     {
         private readonly IRepositoryBase<Trade> _repository = repository;
+        private readonly IRepositoryBase<Setup> _setupRepository = setupRepository;
         private readonly UserManager<IdentityUser> _userManager = userManager;
 
         public async Task<Result<InternalError, SetupsEfficiencyResponse>> Handle(GetSetupsEfficiencyQuery request, CancellationToken cancellationToken)
@@ -31,6 +32,10 @@ namespace TM.Application.Analysis.Handlers.GetSetupEfficiency
                                    SetupId = g.Key,
                                    Efficiency = g.Count(t => t.ResultType == ResultType.Take) / (double)g.Count()
                                }).ToList();
+            foreach (var item in setups)
+            {
+                item.SetupId = (await _setupRepository.FindByIdAsync(item.SetupId)).Name;
+            }
 
             return new SetupsEfficiencyResponse { Setups = setups };
         }

@@ -22,7 +22,7 @@ namespace TM.Application.Trades.Handlers
 
             List<Trade> trades = await _repository.GetAllAsync();
 
-            return _mapper.Map<List<TradeResponse>>(trades.Where(x => x.UserID == currentUser?.Id).ToList());
+            return _mapper.Map<List<TradeResponse>>(trades.Where(x => x.UserID == currentUser?.Id).OrderByDescending(x => x.Date).ToList());
         }
     }
 }
